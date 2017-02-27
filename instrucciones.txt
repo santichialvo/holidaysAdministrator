@@ -1,0 +1,7 @@
+instalar postgre en servidor, configurar
+instalar python 2.7 y Psycopg2 en cada maquina. http://www.stickpeople.com/projects/python/win-psycopg/
+crear regla en puerto especifico para 5432
+Bajar easy_install -> https://pypi.python.org/pypi/setuptools#downloads y usarlo para extraer los paquetes a site-paq
+pip install six
+pip install packaging
+pip install appdirs
