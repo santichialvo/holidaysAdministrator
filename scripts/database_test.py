@@ -8,7 +8,7 @@ import psycopg2
 
 def searchForUsers(user,password,conn):
     cur = conn.cursor()
-    command = """SELECT ID from Usuario where Login like '%s' and Password like '%s'"""%(user,password)
+    command = """SELECT ID_Usuario from Rol r inner join Usuario u on u.ID = r.ID_Usuario where u.Login like '%s' and u.Password like '%s'"""%(user,password)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -73,3 +73,19 @@ def deleteRequestByID(ID_Req,conn):
     conn.commit()
     cur.close()
     return 0
+
+def searchAllRequests(conn):
+    cur = conn.cursor()
+    command = """SELECT * from Solicitud order by ID"""
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def searchNameByRequest(ID_Req,conn):
+    cur = conn.cursor()
+    command = """SELECT u.Nombre,u.Apellido from Solicitud s inner join Usuario u on u.ID = s.ID_Usuario_S where s.ID = %s"""%ID_Req
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0]

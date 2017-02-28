@@ -35,13 +35,16 @@ create table Solicitud (
 	constraint uk_solicitud unique (ID_Usuario_S,Fecha_desde),
 	constraint fk_solicitud1 foreign key (ID_Usuario_S) references Usuario(ID),
 	constraint fk_solicitud2 foreign key (ID_Usuario_A) references Usuario(ID)
-	); 
-
+	);
 
 insert into Usuario values(default,'Santiago','comando09','Santiago','Chialvo','santi_0926@hotmail.com');
+insert into Usuario values(default,'Erika','darkside','Erika','Mehring','erika_0926@hotmail.com');
 insert into Solicitud values(default,1,null,'09/03/2017','19/03/2017','Varias','A',null);
 insert into Solicitud values(default,1,null,'20/03/2017',null,'Varias','A',0);
 insert into Solicitud values(default,1,null,'21/03/2017',null,'Varias','A',1);
 insert into Solicitud values(default,1,null,'22/03/2017',null,'Varias','A',2);
+insert into Rol values(default,1,0);
+insert into Rol values(default,1,1);
+insert into Rol values(default,2,0);
 
-select * from Solicitud
+select * from Rol

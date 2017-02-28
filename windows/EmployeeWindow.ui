@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>871</width>
-    <height>368</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,132 +20,347 @@
    <iconset resource="../images/Resource_ha.qrc">
     <normaloff>:/F1/fromHelyx/eye16.png</normaloff>:/F1/fromHelyx/eye16.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="MainWindowWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="2">
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_presentacion">
-        <property name="text">
-         <string>Hola,</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Días de vacaciones restantes:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Solicitudes:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Notificaciones:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QTableWidget" name="tableWidget"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QTableWidget" name="table_solicitudes">
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>80</number>
-        </attribute>
-        <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>40</number>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="verticalHeaderMinimumSectionSize">
-         <number>23</number>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Solicitud</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Fecha Desde</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Fecha Hasta</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Tipo</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Estado</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <widget class="QCalendarWidget" name="calendario"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="button_cancelRequest">
-        <property name="text">
-         <string>Cancelar Solicitud</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../images/Resource_ha.qrc">
-          <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="button_dayRequest">
-        <property name="text">
-         <string>Solicitar Día(s)</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../images/Resource_ha.qrc">
-          <normaloff>:/F1/fromHelyx/calculator16.png</normaloff>:/F1/fromHelyx/calculator16.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="1">
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <widget class="QWidget" name="tab_employee">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <attribute name="title">
+        <string>Vista de Usuario</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="2" column="0">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="button_cancelRequest">
+            <property name="text">
+             <string>Cancelar Solicitud</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../images/Resource_ha.qrc">
+              <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="button_dayRequest">
+            <property name="text">
+             <string>Solicitar Día(s)</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../images/Resource_ha.qrc">
+              <normaloff>:/F1/fromHelyx/calculator16.png</normaloff>:/F1/fromHelyx/calculator16.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="2" rowspan="2">
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_presentacion">
+            <property name="text">
+             <string>Hola,</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Días de vacaciones restantes:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Solicitudes:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Notificaciones:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QTableWidget" name="tableWidget"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QTableWidget" name="table_solicitudes">
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>80</number>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>40</number>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>23</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Solicitud</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha Desde</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha Hasta</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Tipo</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Estado</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1" rowspan="2">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCalendarWidget" name="calendario">
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>170</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>170</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>170</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>170</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_admin">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <attribute name="title">
+        <string>Vista de Administrador</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>400</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="QTableWidget" name="tableAdmSolicitudes">
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>80</number>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>31</number>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>30</number>
+          </attribute>
+          <attribute name="verticalHeaderMinimumSectionSize">
+           <number>23</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Solicitud</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Empleado</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Fecha Desde</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Fecha Hasta</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Tipo</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Estado</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="buttonAdmSolicitudes">
+          <property name="text">
+           <string>Administrar Solicitudes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -156,7 +371,16 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionVista_de_Administrador">
+   <property name="text">
+    <string>Vista de Administrador</string>
+   </property>
+  </action>
+  <action name="actionVista_de_Usuario">
+   <property name="text">
+    <string>Vista de Usuario</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../images/Resource_ha.qrc"/>
@@ -198,5 +422,6 @@
  <slots>
   <slot>requestDay()</slot>
   <slot>cancelRequest()</slot>
+  <slot>changeView()</slot>
  </slots>
 </ui>
