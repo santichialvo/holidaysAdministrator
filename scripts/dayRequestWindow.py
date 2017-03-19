@@ -8,7 +8,7 @@ Created on Fri Feb 24 17:34:08 2017
 from PyQt5 import QtCore, QtGui, QtWidgets
 from dayRequestWindow_ui import Ui_DayRequestWindow
 import datetime
-from database_test import doRequestByID,searchRequestsByUserID
+from database_test import doRequestByID,searchRequestsByUserID,getIDCurrentPeriod
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -29,7 +29,7 @@ class dayRequestWindow(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self)
         self.ui = Ui_DayRequestWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(350,225)
+        self.setFixedSize(362,280)
         self.ui.fechaDesde.setDate(datetime.datetime.now())
         self.ui.fechaHasta.setDate(datetime.datetime.now())
         self.maxLengthRazon = 120
@@ -44,10 +44,12 @@ class dayRequestWindow(QtWidgets.QDialog):
             self.ui.diaUnicoComboBox.setEnabled(False)
             
     def requestDays(self,userID,conn):
+        IDCurrentPeriod = getIDCurrentPeriod(conn)
         fechaDesde = self.ui.fechaDesde.date()
         fechaHasta = self.ui.fechaHasta.date() if self.ui.fechaHasta.isEnabled() else None
         Razon = self.ui.razon.toPlainText() if self.ui.razon.toPlainText()!='' else None
         MedioDia = self.ui.diaUnicoComboBox.currentIndex() if self.ui.diaUnico.isChecked() else None
+        Tipo = self.ui.tipo.currentIndex()
                                          
         Requests=searchRequestsByUserID(userID,conn)
         for irequest in Requests:
@@ -70,7 +72,7 @@ class dayRequestWindow(QtWidgets.QDialog):
         QuestionStr = '¿Está seguro que desea solicitar los días %s a %s?'%(fechaDesde.toString('dd/MM/yyyy'),fechaHasta.toString('dd/MM/yyyy')) if fechaHasta is not None else '¿Está seguro que desea solicitar el día %s?'%fechaDesde.toString('dd/MM/yyyy')
         Rta = QtWidgets.QMessageBox.question(self,'Confirmación',QuestionStr,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
         if Rta==QtWidgets.QMessageBox.Yes:
-            Return = doRequestByID(userID,conn,self.ui.fechaDesde.date(),fechaHasta,Razon,MedioDia)
+            Return = doRequestByID(userID,conn,self.ui.fechaDesde.date(),Tipo,IDCurrentPeriod,fechaHasta,Razon,MedioDia)
             if Return==23505:   #unique violation
                 QtWidgets.QMessageBox.critical(self,'Error','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
             elif Return==23514: #check violation

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>411</height>
+    <width>1054</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -146,6 +146,11 @@
             <column>
              <property name="text">
               <string>Fecha Hasta</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Extensión</string>
              </property>
             </column>
             <column>
@@ -266,7 +271,42 @@
         <string>Vista de Administrador</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="1" column="0">
+        <item row="2" column="3" rowspan="2">
+         <layout class="QVBoxLayout" name="widgetsLayout"/>
+        </item>
+        <item row="4" column="1">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="4">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="2">
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -276,69 +316,29 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>400</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item row="1" column="1">
-         <widget class="QTableWidget" name="tableAdmSolicitudes">
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>80</number>
-          </attribute>
-          <attribute name="horizontalHeaderMinimumSectionSize">
-           <number>31</number>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderDefaultSectionSize">
-           <number>30</number>
-          </attribute>
-          <attribute name="verticalHeaderMinimumSectionSize">
-           <number>23</number>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>Solicitud</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Empleado</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Fecha Desde</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Fecha Hasta</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Tipo</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Estado</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="buttonAdmSolicitudes">
-          <property name="text">
-           <string>Administrar Solicitudes</string>
+        <item row="2" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-         </widget>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="3">
          <spacer name="verticalSpacer_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -354,6 +354,64 @@
           </property>
          </spacer>
         </item>
+        <item row="2" column="1" rowspan="2">
+         <widget class="QListWidget" name="adminListWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="currentRow">
+           <number>0</number>
+          </property>
+          <item>
+           <property name="text">
+            <string>Solicitudes</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../images/Resource_ha.qrc">
+             <normaloff>:/F1/fromHelyx/parMap16.png</normaloff>:/F1/fromHelyx/parMap16.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Empleados</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../images/Resource_ha.qrc">
+             <normaloff>:/F1/fromHelyx/homeFolder16.png</normaloff>:/F1/fromHelyx/homeFolder16.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Notificaciones</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../images/Resource_ha.qrc">
+             <normaloff>:/F1/fromHelyx/file16.png</normaloff>:/F1/fromHelyx/file16.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Histórico</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../images/Resource_ha.qrc">
+             <normaloff>:/F1/fromHelyx/monitoringFunction16.png</normaloff>:/F1/fromHelyx/monitoringFunction16.png</iconset>
+           </property>
+           <property name="flags">
+            <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+           </property>
+          </item>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -366,7 +424,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>871</width>
+     <width>1054</width>
      <height>21</height>
     </rect>
    </property>
@@ -393,8 +451,8 @@
    <slot>requestDay()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>289</y>
+     <x>175</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
@@ -409,12 +467,28 @@
    <slot>cancelRequest()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>187</x>
-     <y>325</y>
+     <x>199</x>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
      <x>373</x>
      <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adminListWidget</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>EmployeeWindow</receiver>
+   <slot>updateCaseSetup(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>105</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>526</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>
@@ -423,5 +497,6 @@
   <slot>requestDay()</slot>
   <slot>cancelRequest()</slot>
   <slot>changeView()</slot>
+  <slot>updateCaseSetup(QListWidgetItem*)</slot>
  </slots>
 </ui>

@@ -11,7 +11,10 @@ from employeeWindow_ui import Ui_EmployeeWindow
 from loginWindow import loginWindow
 from dayRequestWindow import dayRequestWindow
 from cancelRequestWindow import cancelRequestWindow
-from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID,searchAllRequests,searchNameByRequest
+from requestsWidget import requestsWidget
+from employeeWidget import employeeWidget
+from notificationsWidget import notificationsWidget
+from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -32,7 +35,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(910,450)
+        self.setFixedSize(1054,450)
         
         try:
             self.connection = psycopg2.connect("dbname='HolidaysAdministrator' user='postgres' host='localhost' password=''")
@@ -71,7 +74,8 @@ class employeeWindow(QtWidgets.QMainWindow):
         
         self.colourRequestedDays()
         self.showRequests()
-        self.showRequestsAdm()
+        if self.ui.tab_admin:
+            self.updateCaseSetup(self.ui.adminListWidget.currentItem())
         return
         
     def showRequests(self):
@@ -93,9 +97,12 @@ class employeeWindow(QtWidgets.QMainWindow):
             it3=QtWidgets.QTableWidgetItem(str('Día completo') if irequest[3]==0 else str('Medio día (mañana)') if irequest[3]==1 else str('Medio día (tarde)') if irequest[3]==2 else str('-'))
             it3.setFlags(QtCore.Qt.ItemIsEnabled)
             self.ui.table_solicitudes.setItem(currentRow,3,it3)
-            it4=QtWidgets.QTableWidgetItem(str('Pendiente') if irequest[4]=='P' else str('Aprobada') if irequest[4]=='A' else str('Rechazada'))
+            it4=QtWidgets.QTableWidgetItem(str('Licencia') if irequest[4]==0 else str('Ausencia'))
             it4.setFlags(QtCore.Qt.ItemIsEnabled)
             self.ui.table_solicitudes.setItem(currentRow,4,it4)
+            it5=QtWidgets.QTableWidgetItem(str('Pendiente') if irequest[5]=='P' else str('Aprobada') if irequest[5]=='A' else str('Rechazada'))
+            it5.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.ui.table_solicitudes.setItem(currentRow,5,it5)
         return
         
         
@@ -115,7 +122,7 @@ class employeeWindow(QtWidgets.QMainWindow):
                     currDay += datetime.timedelta(1)
             else:
                 day = QtCore.QDate(iday[0].year,iday[0].month,iday[0].day)
-                self.ui.calendario.setDateTextFormat(day,format_reqday_complete if iday[2] is None else format_reqday_half)
+                self.ui.calendario.setDateTextFormat(day,format_reqday_complete if iday[2]==0 else format_reqday_half)
                 
     def requestDay(self):
         drw = dayRequestWindow()
@@ -134,30 +141,21 @@ class employeeWindow(QtWidgets.QMainWindow):
                 self.showRequests()
         return
     
-    def showRequestsAdm(self):
-        Requests = searchAllRequests(self.connection)
-        self.ui.tableAdmSolicitudes.clearContents()
-        self.ui.tableAdmSolicitudes.setRowCount(0)
-        for irequest in Requests:
-            currentRow=self.ui.tableAdmSolicitudes.rowCount()
-            self.ui.tableAdmSolicitudes.setRowCount(currentRow+1)
-            it0=QtWidgets.QTableWidgetItem(str(irequest[0]))
-            it0.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,0,it0)
-            Tuple=searchNameByRequest(irequest[0],self.connection)
-            it1=QtWidgets.QTableWidgetItem(str(Tuple[0]+' '+Tuple[1]))
-            it1.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,1,it1)
-            it2=QtWidgets.QTableWidgetItem(str(irequest[3].day)+'/'+str(irequest[3].month)+'/'+str(irequest[3].year))
-            it2.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,2,it2)
-            it3=QtWidgets.QTableWidgetItem(str(irequest[4].day)+'/'+str(irequest[4].month)+'/'+str(irequest[4].year) if irequest[4] is not None else '-')
-            it3.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,3,it3)
-            it4=QtWidgets.QTableWidgetItem(str('Día completo') if irequest[7]==0 else str('Medio día (mañana)') if irequest[7]==1 else str('Medio día (tarde)') if irequest[7]==2 else str('-'))
-            it4.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,4,it4)
-            it5=QtWidgets.QTableWidgetItem(str('Pendiente') if irequest[6]=='P' else str('Aprobada') if irequest[6]=='A' else str('Rechazada'))
-            it5.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.ui.tableAdmSolicitudes.setItem(currentRow,5,it5)
+    def updateCaseSetup(self,QListWidgetItem):
+        if not QListWidgetItem:
+            return
+        
+        menu=QListWidgetItem.text()
+        if menu=='Solicitudes':
+            widget=requestsWidget(self.connection,self.currentUserID)
+        elif menu=='Empleados':
+            widget=employeeWidget(self.connection,self.currentUserID)
+        elif menu=='Histórico':
+            widget=None
+        elif menu=='Notificaciones':
+            widget=notificationsWidget(self.connection,self.currentUserID)
+        
+        if self.ui.widgetsLayout.count()==1:
+            self.ui.widgetsLayout.itemAt(0).widget().deleteLater()
+        self.ui.widgetsLayout.insertWidget(0,widget)
         return

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EmployeeWidget</class>
+ <widget class="QWidget" name="EmployeeWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>844</width>
+    <height>409</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="0">
+    <widget class="QTableWidget" name="employeeStatustableWidget">
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>73</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Empleado</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Total</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ausencias</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Licencias</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Restantes</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QCalendarWidget" name="employeecalendarWidget"/>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="giveDays_pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Dar Días</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/pencil16.png</normaloff>:/F1/fromHelyx/pencil16.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="descountDays_pushButton">
+       <property name="text">
+        <string>Descontar Días</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/win_closeAll16.png</normaloff>:/F1/fromHelyx/win_closeAll16.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>Administrar Feriados</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/application_view_list16.png</normaloff>:/F1/fromHelyx/application_view_list16.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="text">
+        <string>Nuevo Período</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/favouritesAdd16.png</normaloff>:/F1/fromHelyx/favouritesAdd16.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../images/Resource_ha.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>employeecalendarWidget</sender>
+   <signal>clicked(QDate)</signal>
+   <receiver>EmployeeWidget</receiver>
+   <slot>showDaysByEmployee()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>636</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>giveDays_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>EmployeeWidget</receiver>
+   <slot>giveDays()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>descountDays_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>EmployeeWidget</receiver>
+   <slot>giveDays()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>showDaysByEmployee()</slot>
+  <slot>giveDays()</slot>
+ </slots>
+</ui>
