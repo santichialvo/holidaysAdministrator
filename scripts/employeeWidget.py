@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 from employeeWidget_ui import Ui_EmployeeWidget
 from admDaysDialog_ui import Ui_AdmDaysDialog
-from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID,searchNameForUserByID,searchforAbsenceOrLicenseByUserID,searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification
+from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID,searchNameForUserByID,searchforAbsenceOrLicenseByUserID,searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -187,7 +187,8 @@ class employeeWidget(QtWidgets.QWidget):
                     IDCurrentPeriod=getIDCurrentPeriod(self.connection)
                     Razon = admDialog.razon_plainTextEdit.toPlainText() if admDialog.razon_plainTextEdit.toPlainText()!='' else '-'
                     txt = 'agregado ' if senderButton=='giveDays_pushButton' else 'descontado '
-                    AddNotification(self.connection,IDCurrentPeriod,'Se han '+str(txt)+str(dias)+' días al empleado '+str(empleado[0])+' '+str(empleado[1])+' por la razón: '+str(Razon))
+                    IDUsuario = getUserID(self.connection,empleado[0],empleado[1])
+                    AddNotification(self.connection,IDCurrentPeriod,IDUsuario,'Se han '+str(txt)+str(dias)+' días al empleado '+str(empleado[0])+' '+str(empleado[1])+' por la razón: '+str(Razon))
                     self.showEmployeeStatus()
                 else:
                     QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')

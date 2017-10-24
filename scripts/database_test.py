@@ -153,6 +153,14 @@ def searchDaysByUserID(conn,Nombre_Usuario,Apellido_Usuario):
     cur.close()
     return rows[0][0]
 
+def getUserID(conn,Nombre_Usuario,Apellido_Usuario):
+    cur = conn.cursor()
+    command = """SELECT ID from Usuario where Nombre like '%s' and Apellido like '%s'"""%(Nombre_Usuario,Apellido_Usuario)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0][0]
+
 def AddDaysToUser(conn,Dias,Nombre_Usuario,Apellido_Usuario):
     cur = conn.cursor()
     command = """UPDATE Usuario set Dias=%s where Nombre like '%s' and Apellido like '%s'"""%(Dias,Nombre_Usuario,Apellido_Usuario)

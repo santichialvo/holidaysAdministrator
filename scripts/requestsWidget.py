@@ -80,7 +80,7 @@ class requestsWidget(QtWidgets.QWidget):
     
     def aprobeRequest(self):
         if self.ui.tableAdmSolicitudes.currentRow()>=0:
-            RequestNumber=self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text()
+            RequestNumber=str(self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text())
             Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea aprobar la solicitud %s?'%RequestNumber,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Return=updateRequestStatus(RequestNumber,False,self.currentUserID,self.connection)
@@ -95,7 +95,7 @@ class requestsWidget(QtWidgets.QWidget):
     
     def cancelRequest(self):
         if self.ui.tableAdmSolicitudes.currentRow()>=0:
-            RequestNumber=self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text()
+            RequestNumber=str(self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text())
             Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea cancelar la solicitud %s?'%RequestNumber,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Return=updateRequestStatus(RequestNumber,True,self.currentUserID,self.connection)

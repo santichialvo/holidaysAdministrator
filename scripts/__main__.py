@@ -22,7 +22,7 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
-    
+
 def main():
     import sys
     app = QtWidgets.QApplication(sys.argv)

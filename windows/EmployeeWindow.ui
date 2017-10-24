@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Administrador de vacaciones 1.0</string>
+   <string>Administrador de Licencias 1.0</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../images/Resource_ha.qrc">
@@ -425,7 +425,7 @@
      <x>0</x>
      <y>0</y>
      <width>1054</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -451,8 +451,8 @@
    <slot>requestDay()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>376</y>
+     <x>187</x>
+     <y>373</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
@@ -478,7 +478,7 @@
   </connection>
   <connection>
    <sender>adminListWidget</sender>
-   <signal>itemClicked(QListWidgetItem*)</signal>
+   <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
    <receiver>EmployeeWindow</receiver>
    <slot>updateCaseSetup(QListWidgetItem*)</slot>
    <hints>
