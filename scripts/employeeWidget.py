@@ -9,7 +9,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 from employeeWidget_ui import Ui_EmployeeWidget
 from admDaysDialog_ui import Ui_AdmDaysDialog
-from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID,searchNameForUserByID,searchforAbsenceOrLicenseByUserID,searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID
+from feriadosDialog_ui import Ui_FeriadosDialog
+from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID, \
+                            searchNameForUserByID,searchforAbsenceOrLicenseByUserID, \
+                            searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID,getFeriados
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -162,6 +165,7 @@ class employeeWidget(QtWidgets.QWidget):
     def giveDays(self):
         senderButton = self.sender().objectName()
         dialog = QtWidgets.QDialog()
+        dialog.setFixedSize(362,280)
         admDialog=Ui_AdmDaysDialog()
         admDialog.setupUi(dialog)
         AllUsersIDs=searchAllUsersID(self.connection)
@@ -185,11 +189,36 @@ class employeeWidget(QtWidgets.QWidget):
                 if Result==0:
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                     IDCurrentPeriod=getIDCurrentPeriod(self.connection)
-                    Razon = admDialog.razon_plainTextEdit.toPlainText() if admDialog.razon_plainTextEdit.toPlainText()!='' else '-'
-                    txt = 'agregado ' if senderButton=='giveDays_pushButton' else 'descontado '
+                    Razon = str(admDialog.razon_plainTextEdit.toPlainText()) if admDialog.razon_plainTextEdit.toPlainText()!='' else '-'
+                    AltaBaja = 1 if senderButton=='giveDays_pushButton' else 0
                     IDUsuario = getUserID(self.connection,empleado[0],empleado[1])
-                    AddNotification(self.connection,IDCurrentPeriod,IDUsuario,'Se han '+str(txt)+str(dias)+' días al empleado '+str(empleado[0])+' '+str(empleado[1])+' por la razón: '+str(Razon))
+                    AddNotification(self.connection,Razon,str(dias),AltaBaja,IDUsuario,IDCurrentPeriod,self.currentUserID)
                     self.showEmployeeStatus()
                 else:
                     QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
         return
+    
+    def adminFeriados(self):
+        dialog = QtWidgets.QDialog()
+        admDialog = Ui_FeriadosDialog()
+        admDialog.setupUi(dialog)
+        dialog.setFixedSize(362,280)
+        
+        IDCurrentPeriod = getIDCurrentPeriod(self.connection)
+        print IDCurrentPeriod
+        Feriados = getFeriados(self.connection,IDCurrentPeriod)
+        print Feriados
+        admDialog.table_feriados.clearContents()
+        admDialog.table_feriados.setRowCount(0)
+        for iFeriados in Feriados:
+            currentRow = admDialog.table_feriados.rowCount()
+            admDialog.table_feriados.setRowCount(currentRow+1)
+            it0 = QtWidgets.QTableWidgetItem(str(iFeriados[0]))
+            it0.setFlags(QtCore.Qt.ItemIsEnabled)
+            admDialog.table_feriados.setItem(currentRow,0,it0)
+            it1 = QtWidgets.QTableWidgetItem(str(iFeriados[1]))
+            it1.setFlags(QtCore.Qt.ItemIsEnabled)
+            admDialog.table_feriados.setItem(currentRow,1,it1)
+            
+        dialog.exec_()
+        

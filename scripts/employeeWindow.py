@@ -14,7 +14,7 @@ from cancelRequestWindow import cancelRequestWindow
 from requestsWidget import requestsWidget
 from employeeWidget import employeeWidget
 from notificationsWidget import notificationsWidget
-from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID
+from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID,getIDCurrentPeriod,searchNotificationsByID
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -74,6 +74,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         
         self.colourRequestedDays()
         self.showRequests()
+        self.showNotifications()
         if self.ui.tab_admin:
             self.updateCaseSetup(self.ui.adminListWidget.currentItem())
         return
@@ -104,7 +105,24 @@ class employeeWindow(QtWidgets.QMainWindow):
             it5.setFlags(QtCore.Qt.ItemIsEnabled)
             self.ui.table_solicitudes.setItem(currentRow,5,it5)
         return
-        
+    
+    def showNotifications(self):
+        self.ui.table_notificaciones.clearContents()
+        self.ui.table_notificaciones.setRowCount(0)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+        UserNotifications=searchNotificationsByID(self.connection,IDCurrentPeriod,self.currentUserID)
+        for iNotification in UserNotifications:
+            currentRow=self.ui.table_notificaciones.rowCount()
+            self.ui.table_notificaciones.setRowCount(currentRow+1)
+            it0=QtWidgets.QTableWidgetItem(str(iNotification[0]))
+            it0.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.ui.table_notificaciones.setItem(currentRow,0,it0)
+            
+            aux = 'descontado ' if iNotification[3]==0 else 'agregado '
+            msj = 'Se le han ' + aux + str(iNotification[2]) + ' días por la razón: ' + str(iNotification[1])
+            it1=QtWidgets.QTableWidgetItem(str(msj))
+            it1.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.ui.table_notificaciones.setItem(currentRow,1,it1)
         
     def colourRequestedDays(self):
         format_reqday_complete = QtGui.QTextCharFormat()

@@ -175,15 +175,31 @@ def AddDaysToUser(conn,Dias,Nombre_Usuario,Apellido_Usuario):
 
 def searchAllNotifications(conn,ID_Periodo):
     cur = conn.cursor()
-    command = """SELECT Fecha,Notificacion from Notificaciones where ID_Periodo = %s order by ID"""%ID_Periodo
+    command = """SELECT Fecha,Razon,ID_Usuario,Cantidad,AltaBaja,ID_Admin from Notificaciones where ID_Periodo = %s order by ID"""%ID_Periodo
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
     return rows
 
-def AddNotification(conn,ID_Periodo,ID_Usuario,Notificacion):
+def searchNotificationsByID(conn,ID_Periodo,ID_Usuario):
     cur = conn.cursor()
-    command = """INSERT into Notificaciones values(default,current_timestamp,'%s',%s,%s)"""%(Notificacion,ID_Periodo,ID_Usuario)
+    command = """SELECT Fecha,Razon,Cantidad,AltaBaja,ID_Admin from Notificaciones where ID_Periodo = %s and ID_Usuario = %s order by ID"""%(ID_Periodo,ID_Usuario)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def getFeriados(conn,ID_Periodo):
+    cur = conn.cursor()
+    command = """SELECT Fecha,Motivo from Feriados where ID_Periodo = %s order by Fecha"""%(ID_Periodo)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def AddNotification(conn,Razon,Dias,AltaBaja,ID_Usuario,ID_Periodo,ID_Admin):
+    cur = conn.cursor()
+    command = """INSERT into Notificaciones values(default,current_timestamp,'%s',%s,%s,%s,%s,%s)"""%(Razon,Dias,AltaBaja,ID_Periodo,ID_Usuario,ID_Admin)
     try:
         cur.execute(command)
     except psycopg2.Error as e:

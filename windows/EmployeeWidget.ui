@@ -106,7 +106,7 @@
    <item row="4" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="feriados_pushButton">
        <property name="text">
         <string>Administrar Feriados</string>
        </property>
@@ -183,9 +183,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>feriados_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>EmployeeWidget</receiver>
+   <slot>adminFeriados()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>536</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>showDaysByEmployee()</slot>
   <slot>giveDays()</slot>
+  <slot>adminFeriados()</slot>
  </slots>
 </ui>

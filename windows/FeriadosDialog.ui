@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FeriadosDialog</class>
+ <widget class="QDialog" name="FeriadosDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Feriados</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../images/Resource_ha.qrc">
+    <normaloff>:/F1/fromHelyx/eye16.png</normaloff>:/F1/fromHelyx/eye16.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QTableWidget" name="table_feriados">
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Fecha</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Motivo</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Agregar</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/copy16.png</normaloff>:/F1/fromHelyx/copy16.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Eliminar</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/erase16.png</normaloff>:/F1/fromHelyx/erase16.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../images/Resource_ha.qrc"/>
+ </resources>
+ <connections/>
+</ui>

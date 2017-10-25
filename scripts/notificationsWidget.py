@@ -7,7 +7,7 @@ Created on Thu Mar  9 18:02:54 2017
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from notificationsWidget_ui import Ui_NotificationsWidget
-from database_test import getIDCurrentPeriod,searchAllNotifications
+from database_test import getIDCurrentPeriod,searchAllNotifications,searchNameForUserByID
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -44,7 +44,14 @@ class notificationsWidget(QtWidgets.QWidget):
             it0=QtWidgets.QTableWidgetItem(str(iNotification[0]))
             it0.setFlags(QtCore.Qt.ItemIsEnabled)
             self.ui.notifications_tableWidget.setItem(currentRow,0,it0)
-            it1=QtWidgets.QTableWidgetItem(str(iNotification[1]))
+            
+            EmployeeName = searchNameForUserByID(self.connection,iNotification[2])
+            AdminName = searchNameForUserByID(self.connection,iNotification[5])
+            aux = 'descontado ' if iNotification[4]==0 else 'agregado '
+            msj = AdminName[0][0] + ' ' + AdminName[0][1] + ' ha ' + aux + str(iNotification[3]) + ' días al empleado ' + str(EmployeeName[0][0]) + ' ' + str(EmployeeName[0][1])
+            msj = msj + ' por la razón: ' + str(iNotification[1])
+            
+            it1=QtWidgets.QTableWidgetItem(str(msj))
             it1.setFlags(QtCore.Qt.ItemIsEnabled)
             self.ui.notifications_tableWidget.setItem(currentRow,1,it1)
         return
