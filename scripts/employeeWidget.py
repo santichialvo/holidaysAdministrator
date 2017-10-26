@@ -38,6 +38,7 @@ class employeeWidget(QtWidgets.QWidget):
         self.daysForEmployee = {}
         self.showEmployeeStatus()
         self.colourRequestedDays()
+        self.colourFeriados()
         return
     
     def showEmployeeStatus(self):
@@ -74,6 +75,15 @@ class employeeWidget(QtWidgets.QWidget):
             self.ui.employeeStatustableWidget.setItem(currentRow,4,it4)
             color = QtCore.Qt.green if RestOfDays==0 else QtCore.Qt.yellow if RestOfDays>0 else QtCore.Qt.red
             it0.setBackground(color)
+        return
+    
+    def colourFeriados(self):
+        format_feriados = QtGui.QTextCharFormat()
+        format_feriados.setBackground(QtCore.Qt.blue)
+        IDCurrentPeriod = getIDCurrentPeriod(self.connection)
+        Feriados = getFeriados(self.connection,IDCurrentPeriod)
+        for iFeriados in Feriados:
+            self.ui.employeecalendarWidget.setDateTextFormat(iFeriados[0],format_feriados)
         return
     
     def colourRequestedDays(self):

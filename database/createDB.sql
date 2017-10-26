@@ -1,4 +1,10 @@
-﻿create table Feriados (
+﻿create table RestriccionesUsuarios (
+	ID		serial		not null,
+	Usuarios	integer[]	not null,
+	constraint pk_restriccionesUsuario primary key (ID)
+	);
+
+create table Feriados (
 	ID		serial		not null,
 	Fecha		date		not null,
 	Motivo		varchar(100)	not null,
@@ -38,6 +44,7 @@ create table Usuario (
 	constraint uk_usuario unique (Login,Password)
 	);
 
+	
 create table Rol (
 	ID		serial		not null,
 	ID_Usuario	int		not null,
@@ -66,8 +73,8 @@ create table Solicitud (
 	
 insert into Periodo values(default,2018);
 --insert into Periodo values(default,2019);
-insert into Usuario values(default,'Santiago','comando09','Santiago','Chialvo','santi_0926@hotmail.com',20);
-insert into Usuario values(default,'Erika','darkside','Erika','Mehring','erika_0926@hotmail.com',25);
+insert into Usuario values(default,'Santiago','','Santiago','Chialvo','santi_0926@hotmail.com',20);
+insert into Usuario values(default,'Erika','','Erika','Mehring','erika_0926@hotmail.com',25);
 insert into Solicitud values(default,1,null,'09/03/2017','19/03/2017','Varias','A',null,1,1);
 insert into Solicitud values(default,1,null,'20/03/2017',null,'Varias y tu vieja','P',0,1,1);
 insert into Solicitud values(default,2,1,'21/03/2017',null,'Varias','A',1,0,1);
@@ -77,4 +84,6 @@ insert into Rol values(default,1,1);
 insert into Rol values(default,2,0);
 insert into Feriados values(default,'19/11/2017','Dia de la Soberanía Nacional',1);
 
-select * from Solicitud
+insert into RestriccionesUsuarios values(default,'{1,2,3}');
+
+select Usuarios from RestriccionesUsuarios
