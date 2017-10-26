@@ -208,3 +208,30 @@ def AddNotification(conn,Razon,Dias,AltaBaja,ID_Usuario,ID_Periodo,ID_Admin):
     conn.commit()
     cur.close()
     return 0
+
+def addFeriados(conn,ID_Periodo,Fecha,Razon):
+    cur = conn.cursor()
+    Fecha_S = "'%s/%s/%s'"%(Fecha.day(),Fecha.month(),Fecha.year())
+    command = """INSERT into Feriados values(default,%s,'%s',%s)"""%(Fecha_S,Razon,ID_Periodo)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode) #23505 si esta repetido
+    conn.commit()
+    cur.close()
+    return 0
+
+def deleteFeriados(conn,ID_Periodo,Fecha):
+    cur = conn.cursor()
+    Fecha_S = "'%s/%s/%s'"%(Fecha.day(),Fecha.month(),Fecha.year())
+    command = """DELETE from Feriados where ID_Periodo=%s and Fecha=%s"""%(ID_Periodo,Fecha_S)
+    try:
+        cur.execute(command)
+        rows = cur.rowcount
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return rows

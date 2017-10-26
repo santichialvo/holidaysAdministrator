@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 from employeeWidget_ui import Ui_EmployeeWidget
 from admDaysDialog_ui import Ui_AdmDaysDialog
-from feriadosDialog_ui import Ui_FeriadosDialog
+from feriadosDialog import feriadosDialog
 from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID, \
                             searchNameForUserByID,searchforAbsenceOrLicenseByUserID, \
                             searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID,getFeriados
@@ -199,26 +199,9 @@ class employeeWidget(QtWidgets.QWidget):
         return
     
     def adminFeriados(self):
-        dialog = QtWidgets.QDialog()
-        admDialog = Ui_FeriadosDialog()
-        admDialog.setupUi(dialog)
-        dialog.setFixedSize(362,280)
+        fd = feriadosDialog(self.connection,self.currentUserID)
+        fd.exec_()
+        return
         
-        IDCurrentPeriod = getIDCurrentPeriod(self.connection)
-        print IDCurrentPeriod
-        Feriados = getFeriados(self.connection,IDCurrentPeriod)
-        print Feriados
-        admDialog.table_feriados.clearContents()
-        admDialog.table_feriados.setRowCount(0)
-        for iFeriados in Feriados:
-            currentRow = admDialog.table_feriados.rowCount()
-            admDialog.table_feriados.setRowCount(currentRow+1)
-            it0 = QtWidgets.QTableWidgetItem(str(iFeriados[0]))
-            it0.setFlags(QtCore.Qt.ItemIsEnabled)
-            admDialog.table_feriados.setItem(currentRow,0,it0)
-            it1 = QtWidgets.QTableWidgetItem(str(iFeriados[1]))
-            it1.setFlags(QtCore.Qt.ItemIsEnabled)
-            admDialog.table_feriados.setItem(currentRow,1,it1)
-            
-        dialog.exec_()
+    
         

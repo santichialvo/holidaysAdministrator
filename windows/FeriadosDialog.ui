@@ -41,7 +41,7 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="agregarFeriados_pushButton">
        <property name="text">
         <string>Agregar</string>
        </property>
@@ -52,7 +52,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="eliminar_pushButton">
        <property name="text">
         <string>Eliminar</string>
        </property>
@@ -69,5 +69,42 @@
  <resources>
   <include location="../images/Resource_ha.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>agregarFeriados_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FeriadosDialog</receiver>
+   <slot>agregarFeriados()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eliminar_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FeriadosDialog</receiver>
+   <slot>eliminarFeriados()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>agregarFeriados()</slot>
+  <slot>eliminarFeriados()</slot>
+ </slots>
 </ui>

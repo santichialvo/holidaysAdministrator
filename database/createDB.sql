@@ -3,7 +3,8 @@
 	Fecha		date		not null,
 	Motivo		varchar(100)	not null,
 	ID_Periodo	int		not null,
-	constraint pk_feriados primary key (ID)
+	constraint pk_feriados primary key (ID),
+	constraint uk_feriados unique (Fecha,ID_Periodo)
 	);
 
 create table Periodo (

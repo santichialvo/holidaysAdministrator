@@ -7,4 +7,5 @@ pyuic5 windows/EmployeeWidget.ui -o scripts/employeeWidget_ui.py
 pyuic5 windows/AdmDaysDialog.ui -o scripts/admDaysDialog_ui.py
 pyuic5 windows/NotificationsWidget.ui -o scripts/notificationsWidget_ui.py
 pyuic5 windows/FeriadosDialog.ui -o scripts/feriadosDialog_ui.py
+pyuic5 windows/ModificarFeriadosDialog.ui -o scripts/modificarFeriadosDialog_ui.py
 pyrcc5 images/Resource_ha.qrc -o scripts/Resource_ha_rc.py
