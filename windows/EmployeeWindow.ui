@@ -506,6 +506,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>EmployeeWindow</receiver>
+   <slot>changeView()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>526</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>526</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>requestDay()</slot>

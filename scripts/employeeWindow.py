@@ -72,12 +72,15 @@ class employeeWindow(QtWidgets.QMainWindow):
         self.currentUserMail = UserTuple[0][5]
         self.ui.label_presentacion.setText('Hola, %s'%self.currentUserName)
         
+        self.changeView()
+        return
+    
+    def changeView(self):
         self.colourRequestedDays()
         self.showRequests()
         self.showNotifications()
         if self.ui.tab_admin:
             self.updateCaseSetup(self.ui.adminListWidget.currentItem())
-        return
         
     def showRequests(self):
         Requests = searchRequestsByUserID(self.currentUserID,self.connection)

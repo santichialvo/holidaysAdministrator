@@ -96,7 +96,6 @@ class feriadosDialog(QtWidgets.QDialog):
             if Rta==QtWidgets.QMessageBox.Yes:
                 IDCurrentPeriod = getIDCurrentPeriod(self.connection)
                 Result = deleteFeriados(self.connection,IDCurrentPeriod,Fecha)
-                print Result
                 if Result==1:
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                 elif Result==0:
