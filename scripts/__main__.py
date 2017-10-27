@@ -27,12 +27,12 @@ def main():
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ew = employeeWindow()
-#    result = ew.login()
-#    while not result:
-#        QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Usuario o contraseña inválido. Por favor, intentelo de nuevo').exec_()
-#        result = ew.login()
-#    if result<0:
-#        sys.exit(0)
+    result = ew.login()
+    while not result:
+        QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Usuario o contraseña inválido. Por favor, intentelo de nuevo').exec_()
+        result = ew.login()
+    if result<0:
+        sys.exit(0)
     ew.show()
     ew.loadData()
     sys.exit(app.exec_())

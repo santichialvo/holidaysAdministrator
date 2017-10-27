@@ -1,4 +1,4 @@
-﻿drop table ResitriccionesUsuarios;
+﻿drop table RestriccionesUsuarios;
 drop table Notificaciones;
 drop table Feriados;
 drop table Usuario cascade;

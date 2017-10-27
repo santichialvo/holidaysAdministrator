@@ -235,3 +235,13 @@ def deleteFeriados(conn,ID_Periodo,Fecha):
     conn.commit()
     cur.close()
     return rows
+
+
+def getRestricciones(conn):
+    cur = conn.cursor()
+    command = """SELECT Usuarios from RestriccionesUsuarios"""
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+    

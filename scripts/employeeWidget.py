@@ -10,6 +10,7 @@ import datetime
 from employeeWidget_ui import Ui_EmployeeWidget
 from admDaysDialog_ui import Ui_AdmDaysDialog
 from feriadosDialog import feriadosDialog
+from restriccionesDialog import restriccionesDialog
 from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID, \
                             searchNameForUserByID,searchforAbsenceOrLicenseByUserID, \
                             searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID,getFeriados
@@ -226,4 +227,7 @@ class employeeWidget(QtWidgets.QWidget):
         return
         
     
-        
+    def adminRestricciones(self):
+        rw = restriccionesDialog(self.connection,self.currentUserID)
+        rw.exec_()
+        return

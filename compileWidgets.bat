@@ -7,4 +7,6 @@ call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows
 call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows\AdmDaysDialog.ui -o scripts\admDaysDialog_ui.py
 call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows\NotificationsWidget.ui -o scripts\notificationsWidget_ui.py
 call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows\FeriadosDialog.ui -o scripts\feriadosDialog_ui.py
+call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows\ModificarFeriadosDialog.ui -o scripts\modificarFeriadosDialog_ui.py
+call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyuic5.bat windows\RestriccionesDialog.ui -o scripts\restriccionesDialog_ui.py
 call ..\WinPython-64bit-3.5.3.0Qt5\python-3.5.3.amd64\Scripts\pyrcc5 images\Resource_ha.qrc -o scripts\Resource_ha_rc.py

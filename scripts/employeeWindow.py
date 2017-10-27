@@ -166,7 +166,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         if not QListWidgetItem:
             return
         
-        menu=QListWidgetItem.text()
+        menu=str(QListWidgetItem.text())
         if menu=='Solicitudes':
             widget=requestsWidget(self.connection,self.currentUserID)
         elif menu=='Empleados':
