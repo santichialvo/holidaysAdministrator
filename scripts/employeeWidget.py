@@ -200,7 +200,11 @@ class employeeWidget(QtWidgets.QWidget):
         result=dialog.exec_()
         
         if result:
-            dias = admDialog.days_spinBox.value()
+            dias = admDialog.days_doubleSpinBox.value()
+            if (dias % .5!=0):
+                QtWidgets.QMessageBox.critical(self,'Error','El número ingresado no es válido')
+                return
+            
             empleado = admDialog.employee_comboBox.currentText()
             txt = 'agregar ' if senderButton=='giveDays_pushButton' else 'descontar '
             Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea '+str(txt)+str(dias)+' días al empleado '+str(empleado)+'?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)

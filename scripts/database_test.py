@@ -163,6 +163,7 @@ def getUserID(conn,Nombre_Usuario,Apellido_Usuario):
 
 def AddDaysToUser(conn,Dias,Nombre_Usuario,Apellido_Usuario):
     cur = conn.cursor()
+    print Dias
     command = """UPDATE Usuario set Dias=%s where Nombre like '%s' and Apellido like '%s'"""%(Dias,Nombre_Usuario,Apellido_Usuario)
     try:
         cur.execute(command)

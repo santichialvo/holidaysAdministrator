@@ -23,7 +23,7 @@ create table Notificaciones (
 	ID		serial		not null,
 	Fecha		date		not null,
 	Razon		varchar(100)	not null,
-	Cantidad	int		not null,	--Cantidad de dias
+	Cantidad	float		not null,	--Cantidad de dias
 	AltaBaja	int		not null,	--1 Agregado, 0 Descontado
 	ID_Periodo	int		not null,
 	ID_Usuario	int		not null,	--Usuario al que corresponde la notificacion
@@ -39,7 +39,7 @@ create table Usuario (
 	Nombre		varchar(30)	not null,
 	Apellido	varchar(30)	not null,
 	Email		varchar(50)	not null,
-	Dias		int		not null,
+	Dias		float		not null,
 	constraint pk_usuario primary key (ID),
 	constraint uk_usuario unique (Login,Password)
 	);
