@@ -163,7 +163,6 @@ def getUserID(conn,Nombre_Usuario,Apellido_Usuario):
 
 def AddDaysToUser(conn,Dias,Nombre_Usuario,Apellido_Usuario):
     cur = conn.cursor()
-    print Dias
     command = """UPDATE Usuario set Dias=%s where Nombre like '%s' and Apellido like '%s'"""%(Dias,Nombre_Usuario,Apellido_Usuario)
     try:
         cur.execute(command)
@@ -245,4 +244,19 @@ def getRestricciones(conn):
     rows = cur.fetchall()
     cur.close()
     return rows
-    
+
+def getRestriccionesFromUser(conn,IDUser):
+    cur = conn.cursor()
+    command = """SELECT Usuarios FROM RestriccionesUsuarios WHERE %s = ANY (Usuarios)"""%(IDUser)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def getRequestByIDs(conn,ID_Req):
+    cur = conn.cursor()
+    command = """SELECT * from Solicitud where ID=%s"""%(ID_Req)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0]

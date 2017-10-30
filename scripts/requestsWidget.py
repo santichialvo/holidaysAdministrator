@@ -7,7 +7,9 @@ Created on Thu Mar  9 18:02:54 2017
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from requestsWidget_ui import Ui_RequestsWidget
-from database_test import searchNameByRequest,searchAllRequests,updateRequestStatus
+from database_test import searchNameByRequest,searchAllRequests,updateRequestStatus, \
+                          getRestriccionesFromUser,getRequestByIDs,searchforAbsenceOrLicenseByUserID, \
+                          getIDCurrentPeriod,searchNameForUserByID
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -78,9 +80,83 @@ class requestsWidget(QtWidgets.QWidget):
             self.ui.tableAdmSolicitudes.setItem(currentRow,8,it8)
         return
     
+    def verifyRestriccion(self,RequestNumber):
+        Request = getRequestByIDs(self.connection,RequestNumber)
+        RequestAux = [(Request[3],Request[4],Request[7])]
+        UserID = Request[1]
+        UserRestricciones = getRestriccionesFromUser(self.connection,UserID)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+#        AusenciasUser = searchforAbsenceOrLicenseByUserID(self.connection,UserID,IDCurrentPeriod,True)
+#        LicenciasUser = searchforAbsenceOrLicenseByUserID(self.connection,UserID,IDCurrentPeriod,False)
+        VecRes = []
+        for iUserRestricciones in UserRestricciones:
+            iUserRestricciones = iUserRestricciones[0]
+            for ijUserRestricciones in iUserRestricciones:
+                if ijUserRestricciones==UserID:
+                    continue
+                AusenciasUserRes = searchforAbsenceOrLicenseByUserID(self.connection,ijUserRestricciones,IDCurrentPeriod,True)
+                LicenciasUserRes = searchforAbsenceOrLicenseByUserID(self.connection,ijUserRestricciones,IDCurrentPeriod,False)
+                if self.checkCollisionsOnRestricciones(LicenciasUserRes,RequestAux):
+                    VecRes.append(iUserRestricciones)
+                    break
+                if self.checkCollisionsOnRestricciones(AusenciasUserRes,RequestAux):
+                    VecRes.append(iUserRestricciones)
+                    break
+        return VecRes
+    
+    def auxCheckCollisionOnResitricciones(self,iALUser,iALUserRes):
+        # si ambas no tienen fecha_hasta, es por un dia. Hay que chequear que 
+        # no sean ambas por la tarde o mañana
+        if (iALUser[1]==None and iALUserRes[1]==None):
+            if (iALUser[0]==iALUserRes[0]):
+                # si coinciden en mañana, tarde o todo el día
+                if (iALUser[2]==iALUserRes[2]):
+                    return True
+        # si solo una no tiene fecha hasta, chequear que esa no este entre 
+        # las otras dos, ida y vuelta
+        if (iALUser[1]==None and iALUserRes[1]!=None):
+            if (iALUserRes[0] <= iALUser[0] <= iALUserRes[1]):
+                return True
+        if (iALUserRes[1]==None and iALUser[1]!=None):
+            if (iALUser[0] <= iALUserRes[0] <= iALUser[1]):
+                return True
+
+        # si ambas tienen fecha_hasta, chequear que los intervalos no se superpongan
+        if (iALUser[1] != None and iALUserRes[1] != None):
+            if ( (iALUser[0] <= iALUserRes[0] <= iALUser[1]) or (iALUser[0] <= iALUserRes[1] <= iALUser[1]) ):
+                    return True
+        if (iALUserRes[1] != None and iALUser[1] != None):
+            if ( (iALUserRes[0] <= iALUser[0] <= iALUserRes[1]) or (iALUserRes[0] <= iALUser[1] <= iALUserRes[1]) ):
+                    return True
+        
+        return False
+    
+    
+    def checkCollisionsOnRestricciones(self,ALUserRes,ALUser):
+        for iALUserRes in ALUserRes:
+            for iALUser in ALUser:
+                 if self.auxCheckCollisionOnResitricciones(iALUser,iALUserRes):
+                     return True
+        return False
+    
     def aprobeRequest(self):
         if self.ui.tableAdmSolicitudes.currentRow()>=0:
             RequestNumber=str(self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text())
+            VecRes = self.verifyRestriccion(RequestNumber)
+            print VecRes
+            if VecRes != []:
+                names = ''
+                for iVecRes in VecRes:
+                    for ijVecRes in iVecRes:
+                        User = searchNameForUserByID(self.connection,ijVecRes)
+                        names = names + User[0][0] + ' ' + User[0][1] + ', '
+                    names = names[:-2] if names != '' else names
+                    names = names + ' - '
+                names = names[:-3] if names != '' else names
+                Rta = QtWidgets.QMessageBox.question(self,'Cuidado','Está por aprobar una solicitud que viola una restricción: %s ¿Desea continuar?'%(names),QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+                if Rta==QtWidgets.QMessageBox.No:
+                    QtWidgets.QMessageBox.critical(self,'Cancelar','Aprobación cancelada')
+                    return
             Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea aprobar la solicitud %s?'%RequestNumber,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Return=updateRequestStatus(RequestNumber,False,self.currentUserID,self.connection)
