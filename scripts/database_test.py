@@ -244,4 +244,44 @@ def getRestricciones(conn):
     rows = cur.fetchall()
     cur.close()
     return rows
-    
+
+def getRestriccionesFromUser(conn,IDUser):
+    cur = conn.cursor()
+    command = """SELECT Usuarios FROM RestriccionesUsuarios WHERE %s = ANY (Usuarios)"""%(IDUser)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def getRequestByIDs(conn,ID_Req):
+    cur = conn.cursor()
+    command = """SELECT * from Solicitud where ID=%s"""%(ID_Req)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0]
+
+def addRestriccionesUsuarios(conn,ResList):
+    cur = conn.cursor()
+    command = """INSERT into RestriccionesUsuarios values(default,'%s')"""%(ResList)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
+def deleteRestriccionesUsuarios(conn,ResList):
+    cur = conn.cursor()
+    command = """DELETE from RestriccionesUsuarios where Usuarios = '%s'"""%(ResList)
+    try:
+        cur.execute(command)
+        rows = cur.rowcount
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return rows

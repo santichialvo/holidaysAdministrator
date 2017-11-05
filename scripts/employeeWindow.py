@@ -40,9 +40,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         try:
             self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='192.168.0.7' password='comando09' port='5432'")
         except psycopg2.OperationalError as e:
-            QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()
-#            print(e.pgcode,e.pgerror)
-            
+            QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()            
             sys.exit(1)
         
         self.currentUserID = 1

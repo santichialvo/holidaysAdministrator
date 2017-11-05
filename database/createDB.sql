@@ -23,7 +23,7 @@ create table Notificaciones (
 	ID		serial		not null,
 	Fecha		date		not null,
 	Razon		varchar(100)	not null,
-	Cantidad	int		not null,	--Cantidad de dias
+	Cantidad	float		not null,	--Cantidad de dias
 	AltaBaja	int		not null,	--1 Agregado, 0 Descontado
 	ID_Periodo	int		not null,
 	ID_Usuario	int		not null,	--Usuario al que corresponde la notificacion
@@ -39,7 +39,7 @@ create table Usuario (
 	Nombre		varchar(30)	not null,
 	Apellido	varchar(30)	not null,
 	Email		varchar(50)	not null,
-	Dias		int		not null,
+	Dias		float		not null,
 	constraint pk_usuario primary key (ID),
 	constraint uk_usuario unique (Login,Password)
 	);
@@ -77,17 +77,17 @@ insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotma
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com',20); --2
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com',20); --3
 insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com',20); --4 
-insert into Usuario values(default,'Angélica','','Angélica','Grazzolo','ag@hotmail.com',20); --5
+insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com',20); --5
 insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com',20); --6
 insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com',20); --7
 insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com',20); --8
 insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com',20); --9
 insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com',20); --10
 
-insert into Solicitud values(default,1,null,'09/03/2017','19/03/2017','Varias','A',null,1,1);
-insert into Solicitud values(default,1,null,'20/03/2017',null,'Varias 2','P',0,1,1);
+insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
+insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);
 insert into Solicitud values(default,2,8,'21/03/2017',null,'Varias 3','A',1,0,1);
-insert into Solicitud values(default,1,null,'22/03/2017',null,null,'A',2,0,1);
+insert into Solicitud values(default,1,9,'22/03/2017',null,null,'A',2,0,1);
 insert into Rol values(default,1,0);
 insert into Rol values(default,2,0);
 insert into Rol values(default,3,0);

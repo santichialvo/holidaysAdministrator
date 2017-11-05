@@ -8,6 +8,7 @@ Created on Thu Feb 23 20:41:20 2017
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from employeeWindow import employeeWindow
+import sys
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -24,7 +25,6 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 def main():
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     ew = employeeWindow()
     result = ew.login()

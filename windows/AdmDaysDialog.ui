@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>307</width>
-    <height>176</height>
+    <height>179</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,9 +83,6 @@
    <item row="1" column="4">
     <widget class="QComboBox" name="employee_comboBox"/>
    </item>
-   <item row="2" column="4">
-    <widget class="QSpinBox" name="days_spinBox"/>
-   </item>
    <item row="3" column="4">
     <widget class="QPlainTextEdit" name="razon_plainTextEdit"/>
    </item>
@@ -93,6 +90,13 @@
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>Razón:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="QDoubleSpinBox" name="days_doubleSpinBox">
+     <property name="singleStep">
+      <double>0.500000000000000</double>
      </property>
     </widget>
    </item>
