@@ -77,7 +77,7 @@ insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotma
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com',20); --2
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com',20); --3
 insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com',20); --4 
-insert into Usuario values(default,'Angelica','','Angélica','Grazzolo','ag@hotmail.com',20); --5
+insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com',20); --5
 insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com',20); --6
 insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com',20); --7
 insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com',20); --8

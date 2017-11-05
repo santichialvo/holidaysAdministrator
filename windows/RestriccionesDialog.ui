@@ -47,17 +47,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="modificar_pushButton">
-       <property name="text">
-        <string>Modificar</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/pencil16.png</normaloff>:/F1/fromHelyx/pencil16.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="eliminar_pushButton">
        <property name="text">
         <string> Eliminar</string>
@@ -75,5 +64,42 @@
  <resources>
   <include location="../images/Resource_ha.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>agregar_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RestriccionesDialog</receiver>
+   <slot>addRestriction()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eliminar_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RestriccionesDialog</receiver>
+   <slot>deleteRestriction()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addRestriction()</slot>
+  <slot>deleteRestriction()</slot>
+ </slots>
 </ui>
