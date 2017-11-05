@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>addRestrictionDialog</class>
+ <widget class="QDialog" name="addRestrictionDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>274</width>
+    <height>149</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Agregar</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" colspan="2">
+    <widget class="QListWidget" name="employee_listWidget"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="add_pushButton">
+     <property name="text">
+      <string> Agregar</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images/Resource_ha.qrc">
+       <normaloff>:/F1/fromHelyx/last_grey16.png</normaloff>:/F1/fromHelyx/last_grey16.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="employee_comboBox"/>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../images/Resource_ha.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>addRestrictionDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>addRestrictionDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>264</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>add_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>addRestrictionDialog</receiver>
+   <slot>addEmployeeToList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>136</x>
+     <y>74</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addEmployeeToList()</slot>
+ </slots>
+</ui>
