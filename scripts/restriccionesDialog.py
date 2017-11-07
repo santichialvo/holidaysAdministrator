@@ -26,6 +26,11 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
     
+try:
+    xrange
+except NameError:
+    xrange = range
+    
 class restriccionesDialog(QtWidgets.QDialog):
     def __init__(self,conn,userID):
         QtWidgets.QWidget.__init__(self)

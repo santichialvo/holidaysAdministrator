@@ -20,6 +20,12 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <widget class="QTableWidget" name="table_feriados">
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
       <bool>false</bool>
      </attribute>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>274</width>
-    <height>149</height>
+    <width>315</width>
+    <height>182</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,14 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" colspan="2">
-    <widget class="QListWidget" name="employee_listWidget"/>
+    <widget class="QListWidget" name="employee_listWidget">
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="2" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1054</width>
-    <height>450</height>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,6 +183,12 @@
           </item>
           <item row="5" column="0">
            <widget class="QTableWidget" name="table_notificaciones">
+            <property name="font">
+             <font>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
             </attribute>
@@ -200,6 +206,14 @@
           </item>
           <item row="3" column="0">
            <widget class="QTableWidget" name="table_solicitudes">
+            <property name="font">
+             <font>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>8</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <attribute name="horizontalHeaderDefaultSectionSize">
              <number>80</number>
             </attribute>
@@ -382,6 +396,12 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>MS Shell Dlg 2</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
           <property name="currentRow">
            <number>0</number>
           </property>
@@ -439,7 +459,7 @@
      <x>0</x>
      <y>0</y>
      <width>1054</width>
-     <height>19</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

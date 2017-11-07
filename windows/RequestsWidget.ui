@@ -16,6 +16,12 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="4">
     <widget class="QTableWidget" name="tableAdmSolicitudes">
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
      </property>

@@ -16,6 +16,12 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
     <widget class="QTableWidget" name="employeeStatustableWidget">
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
