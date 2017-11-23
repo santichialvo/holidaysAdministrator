@@ -3,7 +3,6 @@
 # Small script to show PostgreSQL and Pyscopg together
 #
 
-#from PyQt5 import QtCore, QtGui, QtWidgets
 import psycopg2
 
 def searchForUsers(user,password,conn):
@@ -94,6 +93,14 @@ def searchNameByRequest(ID_Req,Admin,conn):
 def getIDCurrentPeriod(conn):
     cur = conn.cursor()
     command = """SELECT ID from Periodo order by ID desc limit 1"""
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0][0]
+
+def getAnioPeriod(conn,ID):
+    cur = conn.cursor()
+    command = """SELECT Anio from Periodo where ID=%s"""%(ID)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -282,6 +289,41 @@ def deleteRestriccionesUsuarios(conn,ResList):
     except psycopg2.Error as e:
         conn.rollback()
         return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return rows
+
+def getPeriodos(conn):
+    cur = conn.cursor()
+    command = """SELECT Anio FROM Periodo"""
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
+def getIDPeriodo(conn,year):
+    cur = conn.cursor()
+    command = """SELECT ID FROM Periodo where Anio=%s"""%year
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0]
+
+def deletePeriodByYear(conn,year):
+    cur = conn.cursor()
+    ID=getIDPeriodo(conn,year)
+    Commands = []
+    Commands.append("""DELETE from Feriados where ID_Periodo=%s"""%ID)
+    Commands.append("""DELETE from Notificaciones where ID_Periodo=%s"""%ID)
+    Commands.append("""DELETE from Solicitud where ID_Periodo=%s"""%ID)
+    Commands.append("""DELETE from Periodo where ID=%s"""%ID)
+    for iComm in Commands:
+        try:
+            cur.execute(iComm)
+            rows = cur.rowcount
+        except psycopg2.Error as e:
+            conn.rollback()
+            return int(e.pgcode)
     conn.commit()
     cur.close()
     return rows

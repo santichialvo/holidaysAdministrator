@@ -118,9 +118,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="period_pushButton">
        <property name="text">
-        <string>Nuevo Período</string>
+        <string>Períodos</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
@@ -207,7 +207,7 @@
    <slot>adminFeriados()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>699</x>
+     <x>682</x>
      <y>398</y>
     </hint>
     <hint type="destinationlabel">
@@ -232,11 +232,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>period_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>EmployeeWidget</receiver>
+   <slot>newPeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>761</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>showDaysByEmployee()</slot>
   <slot>giveDays()</slot>
   <slot>adminFeriados()</slot>
   <slot>adminRestricciones()</slot>
+  <slot>newPeriod()</slot>
  </slots>
 </ui>

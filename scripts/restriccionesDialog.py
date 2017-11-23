@@ -68,6 +68,7 @@ class restriccionesDialog(QtWidgets.QDialog):
             cantEmpleados = addrDialog.ui.employee_listWidget.count()
             if cantEmpleados==0:
                 QtWidgets.QMessageBox.critical(self,'Error','No ha seleccionado ningún empleado')
+                return
             text = ''
             for iItem in xrange(cantEmpleados):
                 item=addrDialog.ui.employee_listWidget.item(iItem)
