@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewPeriodDialog</class>
+ <widget class="QDialog" name="NewPeriodDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>232</width>
+    <height>184</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Periodos</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="new_pushButton">
+       <property name="text">
+        <string>Nuevo</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/tick16.png</normaloff>:/F1/fromHelyx/tick16.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delete_pushButton">
+       <property name="text">
+        <string>Eliminar</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QListWidget" name="period_listWidget">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../images/Resource_ha.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>delete_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>NewPeriodDialog</receiver>
+   <slot>deletePeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>115</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>period_listWidget</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>NewPeriodDialog</receiver>
+   <slot>selectPeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>115</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>115</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>deletePeriod()</slot>
+  <slot>selectPeriod()</slot>
+ </slots>
+</ui>
