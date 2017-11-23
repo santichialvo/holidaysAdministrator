@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import psycopg2
 import datetime
 import sys
+from utils import findIPfromMAC
 from employeeWindow_ui import Ui_EmployeeWindow
 from loginWindow import loginWindow
 from dayRequestWindow import dayRequestWindow
@@ -40,7 +41,8 @@ class employeeWindow(QtWidgets.QMainWindow):
         self.setFixedSize(1054,450)
         import platform
         SO = platform.system()
-        
+        IP=findIPfromMAC('70-71-bc-76-dd-09')
+
         try:
             if SO=='Linux':
                 self.connection = psycopg2.connect("dbname='HolidaysAdministrator' user='postgres' host='localhost' password=''")
