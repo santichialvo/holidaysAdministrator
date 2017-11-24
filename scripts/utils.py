@@ -11,7 +11,7 @@ def findIPfromMAC(MAC):
     
     proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     IPstr = str(proc.stdout.read())
-    
+
     if IPstr!=' ':
         fpos = IPstr.find('192.168')
         IP = ''

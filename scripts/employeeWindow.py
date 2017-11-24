@@ -41,7 +41,9 @@ class employeeWindow(QtWidgets.QMainWindow):
         self.setFixedSize(1054,450)
         import platform
         SO = platform.system()
-        IP=findIPfromMAC('70-71-bc-76-dd-09')
+        
+        if SO!='Linux':
+            IP=findIPfromMAC('70-71-bc-76-dd-09')
 
         try:
             if SO=='Linux':
