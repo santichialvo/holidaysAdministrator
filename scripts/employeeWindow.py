@@ -43,15 +43,19 @@ class employeeWindow(QtWidgets.QMainWindow):
         SO = platform.system()
         
         if SO!='Linux':
-            IP=findIPfromMAC('70-71-bc-76-dd-09')
+            IP=findIPfromMAC('94-de-80-78-61-68')
+            print(IP)
+            if (IP.find('192.168')==-1):
+                QtWidgets.QMessageBox.critical(self,'Error','Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida').exec_()
+                sys.exit(1)
 
         try:
             if SO=='Linux':
                 self.connection = psycopg2.connect("dbname='HolidaysAdministrator' user='postgres' host='localhost' password=''")
             else:
-                self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='192.168.0.7' password='comando09' port='5432'")
+                self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='%s' password='comando09' port='5432'"%IP)
         except psycopg2.OperationalError as e:
-            QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()            
+            QtWidgets.QMessageBox.critical(self,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()            
             sys.exit(1)
         
         self.currentUserID = 1
@@ -143,7 +147,8 @@ class employeeWindow(QtWidgets.QMainWindow):
         format_reqday_complete.setBackground(QtCore.Qt.yellow)
         format_reqday_half = QtGui.QTextCharFormat()
         format_reqday_half.setBackground(QtCore.Qt.green)
-        Days = searchDaysAcceptedByID(self.currentUserID,self.connection)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+        Days = searchDaysAcceptedByID(self.currentUserID,self.connection,IDCurrentPeriod)
         for iday in Days:
             if iday[1]!=None:
                 currDay=iday[0]

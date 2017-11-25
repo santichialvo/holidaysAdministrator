@@ -94,10 +94,11 @@ class employeeWidget(QtWidgets.QWidget):
         format_reqday_two = QtGui.QTextCharFormat()
         format_reqday_two.setBackground(QtCore.Qt.green)
         AllUsersIDs=searchAllUsersID(self.connection)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
         daysEmployeeDict = []               #Lista que me indica todos los dias que fueron pedidos
         self.daysForEmployee.clear()        #Diccionario con key=dia_mediodia y value una lista con los id de los empleados
         for idemployee in AllUsersIDs:
-            Days = searchDaysAcceptedByID(idemployee[0],self.connection)
+            Days = searchDaysAcceptedByID(idemployee[0],self.connection,IDCurrentPeriod)
             for iday in Days:
                 if iday[1]!=None:
                     currDay=iday[0]
@@ -226,8 +227,33 @@ class employeeWidget(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
         return
     
+    def resetCalendar(self):
+        format_normal = QtGui.QTextCharFormat()
+        format_normal.setBackground(QtCore.Qt.white)
+        AllUsersIDs=searchAllUsersID(self.connection)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+        # reseteo dias de empleados
+        for idemployee in AllUsersIDs:
+            Days = searchDaysAcceptedByID(idemployee[0],self.connection,IDCurrentPeriod)
+            for iday in Days:
+                if iday[1]!=None:
+                    currDay=iday[0]
+                    maxDay=iday[1]
+                    while currDay<=maxDay:
+                        day = QtCore.QDate(currDay.year,currDay.month,currDay.day)
+                        self.ui.employeecalendarWidget.setDateTextFormat(day,format_normal)
+                        currDay += datetime.timedelta(1)
+                else:
+                    day = QtCore.QDate(iday[0].year,iday[0].month,iday[0].day)
+                    self.ui.employeecalendarWidget.setDateTextFormat(day,format_normal)
+        # reseteo feriados
+        Feriados = getFeriados(self.connection,IDCurrentPeriod)
+        for iFeriados in Feriados:
+            self.ui.employeecalendarWidget.setDateTextFormat(iFeriados[0],format_normal)
+        return
+        
     def adminFeriados(self):
-        fd = feriadosDialog(self.connection,self.currentUserID)
+        fd = feriadosDialog(self.connection,self.currentUserID,self)
         fd.exec_()
         return
         
@@ -238,6 +264,6 @@ class employeeWidget(QtWidgets.QWidget):
         return
     
     def newPeriod(self):
-        np = newPeriodDialog(self.connection,self.currentUserID)
+        np = newPeriodDialog(self.connection,self.currentUserID,self)
         np.exec_()
         return

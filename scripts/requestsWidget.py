@@ -36,7 +36,8 @@ class requestsWidget(QtWidgets.QWidget):
         return
     
     def showRequestsAdm(self):
-        Requests = searchAllRequests(self.connection)
+        currentIDPeriod = getIDCurrentPeriod(self.connection)
+        Requests = searchAllRequests(self.connection,currentIDPeriod)
         self.ui.tableAdmSolicitudes.clearContents()
         self.ui.tableAdmSolicitudes.setRowCount(0)
         for irequest in Requests:

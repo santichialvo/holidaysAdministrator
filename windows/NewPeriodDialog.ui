@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Periodos</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../images/Resource_ha.qrc">
+    <normaloff>:/F1/fromHelyx/eye16.png</normaloff>:/F1/fromHelyx/eye16.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">

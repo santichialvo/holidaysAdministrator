@@ -21,9 +21,9 @@ def searchUserByID(ID,conn):
     cur.close()
     return rows
 
-def searchDaysAcceptedByID(ID_Usuario,conn):
+def searchDaysAcceptedByID(ID_Usuario,conn,ID_Periodo):
     cur = conn.cursor()
-    command = """SELECT Fecha_desde,Fecha_hasta,MedioDia from Solicitud where ID_Usuario_S=%s and Estado='A'"""%ID_Usuario
+    command = """SELECT Fecha_desde,Fecha_hasta,MedioDia from Solicitud where ID_Usuario_S=%s and Estado='A' and ID_Periodo=%s"""%(ID_Usuario,ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -73,9 +73,9 @@ def deleteRequestByID(ID_Req,conn):
     cur.close()
     return 0
 
-def searchAllRequests(conn):
+def searchAllRequests(conn,ID_Periodo):
     cur = conn.cursor()
-    command = """SELECT * from Solicitud order by ID"""
+    command = """SELECT * from Solicitud where ID_Periodo=%s order by ID"""%(ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -92,7 +92,7 @@ def searchNameByRequest(ID_Req,Admin,conn):
 
 def getIDCurrentPeriod(conn):
     cur = conn.cursor()
-    command = """SELECT ID from Periodo order by ID desc limit 1"""
+    command = """SELECT ID from Periodo where Activo=true"""
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -105,6 +105,19 @@ def getAnioPeriod(conn,ID):
     rows = cur.fetchall()
     cur.close()
     return rows[0][0]
+
+def activate_deactivatePeriod(conn,Anio,activate):
+    activateStr='true' if activate else 'false'
+    cur = conn.cursor()
+    command = """UPDATE Periodo set Activo=%s where Anio=%s"""%(activateStr,Anio)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
 
 def updateRequestStatus(ID_Req,Cancel,ID_Admin,conn):
     cur = conn.cursor()
@@ -295,7 +308,7 @@ def deleteRestriccionesUsuarios(conn,ResList):
 
 def getPeriodos(conn):
     cur = conn.cursor()
-    command = """SELECT Anio FROM Periodo"""
+    command = """SELECT Anio FROM Periodo order by ID"""
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()

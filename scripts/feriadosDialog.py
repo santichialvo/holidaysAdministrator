@@ -27,16 +27,16 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
     
 class feriadosDialog(QtWidgets.QDialog):
-    def __init__(self,conn,userID):
+    def __init__(self,conn,userID,parent):
         QtWidgets.QDialog.__init__(self)
         self.ui = Ui_FeriadosDialog()
         self.ui.setupUi(self)
         self.setFixedSize(362,280)
         self.connection = conn
         self.userID = userID
+        self.parent = parent
         self.showFeriados()
         return
-    
     
     def showFeriados(self):
         IDCurrentPeriod = getIDCurrentPeriod(self.connection)
@@ -71,6 +71,7 @@ class feriadosDialog(QtWidgets.QDialog):
                 if Result==0:
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                     self.showFeriados()
+                    self.parent.colourFeriados()
                 elif Result==23505:
                     QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'Usted ya seleccionó este día como feriado')
                 else:
@@ -103,5 +104,6 @@ class feriadosDialog(QtWidgets.QDialog):
                 else:
                     QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
                 self.showFeriados()
+                self.parent.colourFeriados()
             else:
                 QtWidgets.QMessageBox.information(self,'Cancelada','Solicitud cancelada')

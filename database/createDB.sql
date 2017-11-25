@@ -16,8 +16,11 @@ create table Feriados (
 create table Periodo (
 	ID		serial		not null,
 	Anio		int		not null,
+	Active		bool		not null,
 	constraint pk_periodo primary key (ID)
 	);
+
+create unique index on Periodo (Activo) where Activo = true; --Para que solo haya un periodo activo
 
 create table Notificaciones (
 	ID		serial		not null,
