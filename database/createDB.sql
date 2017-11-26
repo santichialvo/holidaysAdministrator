@@ -17,6 +17,7 @@ create table Periodo (
 	ID		serial		not null,
 	Anio		int		not null,
 	Active		bool		not null,
+	constraint uk_anioPeriodo unique (Anio),
 	constraint pk_periodo primary key (ID)
 	);
 
@@ -47,6 +48,15 @@ create table Usuario (
 	constraint uk_usuario unique (Login,Password)
 	);
 
+create table DiasPeriodo (
+	ID 		serial		not null,
+	ID_Usuario	int		not null,
+	ID_Periodo	int		not null,
+	Dias		float		not null default 20,
+	constraint pk_diasperiodo primary key(ID),
+	constraint uk_usuarioperiodo unique (ID_Usuario,ID_Periodo)
+	);
+
 	
 create table Rol (
 	ID		serial		not null,
@@ -74,8 +84,9 @@ create table Solicitud (
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)
 	);
 	
-insert into Periodo values(default,2018);
---insert into Periodo values(default,2019);
+insert into Periodo values(default,2018,true);
+--insert into Periodo values(default,2019,false);
+--insert into Periodo values(default,2020,false);
 insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotmail.com',20); --1
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com',20); --2
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com',20); --3
@@ -86,6 +97,15 @@ insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmai
 insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com',20); --8
 insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com',20); --9
 insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com',20); --10
+insert into DiasPeriodo(default,1,1,20);
+insert into DiasPeriodo(default,2,1,20);
+insert into DiasPeriodo(default,3,1,20);
+insert into DiasPeriodo(default,4,1,20);
+insert into DiasPeriodo(default,6,1,20);
+insert into DiasPeriodo(default,7,1,20);
+insert into DiasPeriodo(default,8,1,20);
+insert into DiasPeriodo(default,9,1,20);
+insert into DiasPeriodo(default,10,1,20);
 
 insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
 insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);

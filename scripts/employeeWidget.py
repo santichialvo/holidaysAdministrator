@@ -50,7 +50,7 @@ class employeeWidget(QtWidgets.QWidget):
         AllUsersIDs=searchAllUsersID(self.connection)
         Feriados=getFeriados(self.connection,IDCurrentPeriod)
         for UserID in AllUsersIDs:
-            Dias=searchDaysForUserByID(self.connection,UserID[0])
+            Dias=searchDaysForUserByID(self.connection,UserID[0],IDCurrentPeriod)
             Nombre=searchNameForUserByID(self.connection,UserID[0])
             currentRow=self.ui.employeeStatustableWidget.rowCount()
             self.ui.employeeStatustableWidget.setRowCount(currentRow+1)
@@ -212,12 +212,15 @@ class employeeWidget(QtWidgets.QWidget):
             Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea '+str(txt)+str(dias)+' días al empleado '+str(empleado)+'?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 empleado = empleado.split(' ')
-                DiasOriginal = searchDaysByUserID(self.connection,empleado[0],empleado[1])
+                ID_Usuario = getUserID(self.connection,empleado[0],empleado[1])
+                IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+                DiasOriginal = searchDaysByUserID(self.connection,ID_Usuario,IDCurrentPeriod)
                 DiasTotal = DiasOriginal+dias if senderButton=='giveDays_pushButton' else DiasOriginal-dias
-                Result = AddDaysToUser(self.connection,DiasTotal,empleado[0],empleado[1])
+                ID_Usuario = getUserID(self.connection,empleado[0],empleado[1])
+                Result = AddDaysToUser(self.connection,DiasTotal,ID_Usuario,IDCurrentPeriod)
                 if Result==0:
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
-                    IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+#                    IDCurrentPeriod=getIDCurrentPeriod(self.connection)
                     Razon = str(admDialog.razon_plainTextEdit.toPlainText()) if admDialog.razon_plainTextEdit.toPlainText()!='' else '-'
                     AltaBaja = 1 if senderButton=='giveDays_pushButton' else 0
                     IDUsuario = getUserID(self.connection,empleado[0],empleado[1])

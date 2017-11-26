@@ -90,6 +90,18 @@ def searchNameByRequest(ID_Req,Admin,conn):
     cur.close()
     return rows
 
+def addPeriod(conn,Anio):
+    cur = conn.cursor()
+    command = """INSERT into Periodo values(default,%s,false);"""%(Anio)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
 def getIDCurrentPeriod(conn):
     cur = conn.cursor()
     command = """SELECT ID from Periodo where Activo=true"""
@@ -101,6 +113,14 @@ def getIDCurrentPeriod(conn):
 def getAnioPeriod(conn,ID):
     cur = conn.cursor()
     command = """SELECT Anio from Periodo where ID=%s"""%(ID)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0][0]
+
+def getIDPeriodByYear(conn,Year):
+    cur = conn.cursor()
+    command = """SELECT ID from Periodo where Anio=%s"""%(Year)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -140,9 +160,9 @@ def searchAllUsersID(conn):
     cur.close()
     return rows
 
-def searchDaysForUserByID(conn,ID_Usuario):
+def searchDaysForUserByID(conn,ID_Usuario,ID_Periodo):
     cur = conn.cursor()
-    command = """SELECT Dias from Usuario where ID=%s"""%ID_Usuario
+    command = """SELECT Dias from DiasPeriodo where ID_Usuario=%s and ID_Periodo=%s"""%(ID_Usuario,ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -165,9 +185,9 @@ def searchforAbsenceOrLicenseByUserID(conn,ID_Usuario,ID_Periodo,Ausencia):
     cur.close()
     return rows
 
-def searchDaysByUserID(conn,Nombre_Usuario,Apellido_Usuario):
+def searchDaysByUserID(conn,ID_Usuario,ID_Periodo):
     cur = conn.cursor()
-    command = """SELECT Dias from Usuario where Nombre like '%s' and Apellido like '%s'"""%(Nombre_Usuario,Apellido_Usuario)
+    command = """SELECT Dias from DiasPeriodo where ID_Usuario=%s and ID_Periodo=%s"""%(ID_Usuario,ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
@@ -181,9 +201,9 @@ def getUserID(conn,Nombre_Usuario,Apellido_Usuario):
     cur.close()
     return rows[0][0]
 
-def AddDaysToUser(conn,Dias,Nombre_Usuario,Apellido_Usuario):
+def AddDaysToUser(conn,Dias,ID_Usuario,ID_Periodo):
     cur = conn.cursor()
-    command = """UPDATE Usuario set Dias=%s where Nombre like '%s' and Apellido like '%s'"""%(Dias,Nombre_Usuario,Apellido_Usuario)
+    command = """UPDATE DiasPeriodo set Dias=%s where ID_Usuario=%s and ID_Periodo=%s"""%(Dias,ID_Usuario,ID_Periodo)
     try:
         cur.execute(command)
     except psycopg2.Error as e:
@@ -340,3 +360,15 @@ def deletePeriodByYear(conn,year):
     conn.commit()
     cur.close()
     return rows
+
+def addDaysOnPeriod(conn,ID_Usuario,ID_Periodo):
+    cur = conn.cursor()
+    command = """INSERT into DiasPeriodo values(default,%s,%s,default)"""%(ID_Usuario,ID_Periodo)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0

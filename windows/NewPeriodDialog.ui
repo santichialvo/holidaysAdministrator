@@ -89,9 +89,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>new_pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>NewPeriodDialog</receiver>
+   <slot>addPeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>115</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>deletePeriod()</slot>
   <slot>selectPeriod()</slot>
+  <slot>addPeriod()</slot>
  </slots>
 </ui>

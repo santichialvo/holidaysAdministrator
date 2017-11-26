@@ -6,7 +6,6 @@ Created on Thu Feb 23 20:41:20 2017
 """
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from employeeWindow import employeeWindow
 import sys
 
