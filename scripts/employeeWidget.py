@@ -13,9 +13,11 @@ from addRemoveEmployeeDialog import addRemoveEmployeeDialog
 from feriadosDialog import feriadosDialog
 from restriccionesDialog import restriccionesDialog
 from newPeriodDialog import newPeriodDialog
+from utils import calculateDays
 from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID, \
                             searchNameForUserByID,searchforAbsenceOrLicenseByUserID, \
-                            searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser,AddNotification,getUserID,getFeriados
+                            searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser, \
+                            AddNotification,getUserID,getFeriados
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -63,12 +65,12 @@ class employeeWidget(QtWidgets.QWidget):
             it1.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
             self.ui.employeeStatustableWidget.setItem(currentRow,1,it1)
             Absences=searchforAbsenceOrLicenseByUserID(self.connection,UserID[0],IDCurrentPeriod,True)
-            DaysAbsences=self.calculateDays(Absences,Feriados)
+            DaysAbsences=calculateDays(Absences,Feriados)
             it2=QtWidgets.QTableWidgetItem(str(DaysAbsences))
             it2.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
             self.ui.employeeStatustableWidget.setItem(currentRow,2,it2)
             Licenses=searchforAbsenceOrLicenseByUserID(self.connection,UserID[0],IDCurrentPeriod,False)
-            DaysLicenses=self.calculateDays(Licenses,Feriados)
+            DaysLicenses=calculateDays(Licenses,Feriados)
             it3=QtWidgets.QTableWidgetItem(str(DaysLicenses))
             it3.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
             self.ui.employeeStatustableWidget.setItem(currentRow,3,it3)
@@ -125,36 +127,7 @@ class employeeWidget(QtWidgets.QWidget):
                         self.daysForEmployee[key].append(idemployee[0])
                     else:
                         self.daysForEmployee[key]=[idemployee[0]]
-                    
-    
-    def checkFeriado(self,currDay,Feriados):
-        for iFeriado in Feriados:
-            if iFeriado[0]==currDay:
-                return True
-        return False
-    
-    def calculateDays(self,TupleDays,Feriados):
-        Cantidad=0
-        for iTuple in TupleDays:
-            if iTuple[1] is not None:
-                currDay=iTuple[0]
-                maxDay=iTuple[1]
-                while currDay<=maxDay:
-                    if self.checkFeriado(currDay,Feriados):
-                        currDay += datetime.timedelta(1)
-                        continue
-                    if currDay.weekday() not in (5,6):
-                        Cantidad+= 1
-                    currDay += datetime.timedelta(1)
-            else:
-                if iTuple[0].weekday() not in (5,6):
-                    if self.checkFeriado(iTuple[0],Feriados):
-                        continue
-                    if iTuple[2]==0:
-                        Cantidad+=1
-                    else:
-                        Cantidad+=0.5
-        return Cantidad
+        return
     
     def showDaysByEmployee(self,QDate):
         Cadena = ''

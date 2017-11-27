@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>362</width>
-    <height>280</height>
+    <height>307</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Administrador de vacaciones 1.0</string>
+   <string>Solicitar Días</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../images/Resource_ha.qrc">

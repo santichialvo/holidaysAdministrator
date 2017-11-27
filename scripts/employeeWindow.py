@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import psycopg2
 import datetime
 import sys
-from utils import findIPfromMAC
+from utils import findIPfromMAC,calculateDays
 from employeeWindow_ui import Ui_EmployeeWindow
 from loginWindow import loginWindow
 from dayRequestWindow import dayRequestWindow
@@ -17,7 +17,9 @@ from cancelRequestWindow import cancelRequestWindow
 from requestsWidget import requestsWidget
 from employeeWidget import employeeWidget
 from notificationsWidget import notificationsWidget
-from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID,getIDCurrentPeriod,searchNotificationsByID
+from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID, \
+                          getIDCurrentPeriod,searchNotificationsByID,getFeriados,searchDaysForUserByID, \
+                          searchforAbsenceOrLicenseByUserID,getAnioPeriod
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -86,12 +88,29 @@ class employeeWindow(QtWidgets.QMainWindow):
             
         self.currentUserName = UserTuple[0][1]
         self.currentUserMail = UserTuple[0][5]
-        self.ui.label_presentacion.setText('Hola, %s'%self.currentUserName)
         
         self.changeView()
         return
     
+    def setLabels(self):
+        self.ui.label_presentacion.setText('Hola, %s'%self.currentUserName)
+        # todo esto para calcular los días restantes.. -_-
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+        Feriados=getFeriados(self.connection,IDCurrentPeriod)
+        Dias=searchDaysForUserByID(self.connection,self.currentUserID,IDCurrentPeriod)
+        DaysTotal=Dias[0][0]
+        Absences=searchforAbsenceOrLicenseByUserID(self.connection,self.currentUserID,IDCurrentPeriod,True)
+        DaysAbsences=calculateDays(Absences,Feriados)
+        Licenses=searchforAbsenceOrLicenseByUserID(self.connection,self.currentUserID,IDCurrentPeriod,False)
+        DaysLicenses=calculateDays(Licenses,Feriados)
+        RestOfDays=DaysTotal-DaysAbsences-DaysLicenses
+        self.ui.label_dias.setText('Días restantes: %s'%RestOfDays)
+        Anio=getAnioPeriod(self.connection,IDCurrentPeriod)
+        self.ui.label_periodo.setText('Período: %s'%Anio)
+        return
+    
     def changeView(self):
+        self.setLabels()
         self.colourRequestedDays()
         self.showRequests()
         self.showNotifications()
