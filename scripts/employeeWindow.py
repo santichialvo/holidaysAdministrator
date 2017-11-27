@@ -118,7 +118,8 @@ class employeeWindow(QtWidgets.QMainWindow):
             self.updateCaseSetup(self.ui.adminListWidget.currentItem())
         
     def showRequests(self):
-        Requests = searchRequestsByUserID(self.currentUserID,self.connection)
+        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
+        Requests = searchRequestsByUserID(self.currentUserID,IDCurrentPeriod,self.connection)
         self.ui.table_solicitudes.clearContents()
         self.ui.table_solicitudes.setRowCount(0)
         for irequest in Requests:

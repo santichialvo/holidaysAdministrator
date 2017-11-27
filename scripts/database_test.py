@@ -45,9 +45,9 @@ def doRequestByID(ID_Usuario,conn,FechaD,Tipo,ID_Periodo,FechaH=None,Razon=None,
     cur.close()
     return 0
 
-def searchRequestsByUserID(ID_Usuario,conn):
+def searchRequestsByUserID(ID_Usuario,ID_Periodo,conn):
     cur = conn.cursor()
-    command = """SELECT ID,Fecha_Desde,Fecha_Hasta,MedioDia,Tipo,Estado from Solicitud where ID_Usuario_S=%s order by ID"""%ID_Usuario
+    command = """SELECT ID,Fecha_Desde,Fecha_Hasta,MedioDia,Tipo,Estado from Solicitud where ID_Usuario_S=%s and ID_Periodo=%s order by ID"""%(ID_Usuario,ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()

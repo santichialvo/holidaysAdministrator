@@ -51,7 +51,7 @@ class dayRequestWindow(QtWidgets.QDialog):
         MedioDia = self.ui.diaUnicoComboBox.currentIndex() if self.ui.diaUnico.isChecked() else None
         Tipo = self.ui.tipo.currentIndex()
                                          
-        Requests=searchRequestsByUserID(userID,conn)
+        Requests=searchRequestsByUserID(userID,IDCurrentPeriod,conn)
         for irequest in Requests:
             ReqFechaDesde = datetime.date(irequest[1].year,irequest[1].month,irequest[1].day)
             ReqFechaHasta = datetime.date(irequest[2].year,irequest[2].month,irequest[2].day) if irequest[2] is not None else None
