@@ -132,7 +132,7 @@ class newPeriodDialog(QtWidgets.QDialog):
             if Rta==QtWidgets.QMessageBox.Yes:
                 Res = addPeriod(self.connection,year)
                 if (Res==0):
-                    # para ada usuario, insertar sus dias para el respectivo periodo
+                    # para cada usuario, insertar sus dias para el respectivo periodo
                     IDs = searchAllUsersID(self.connection)
                     IDPeriod = getIDPeriodByYear(self.connection,year)
                     for ID in IDs:

@@ -11,4 +11,6 @@ call pyuic windows\ModificarFeriadosDialog.ui -o scripts\modificarFeriadosDialog
 call pyuic windows\RestriccionesDialog.ui -o scripts\restriccionesDialog_ui.py
 call pyuic windows\AddRestrictionDialog.ui -o scripts\addRestrictionDialog_ui.py
 call pyuic windows\NewPeriodDialog.ui -o scripts\newPeriodDialog_ui.py
+call pyuic windows\AddRemoveEmployeeDialog.ui -o scripts\addRemoveEmployeeDialog_ui.py
+call pyuic windows\AddEmployeeDialog.ui -o scripts\addEmployeeDialog_ui.py
 call C:\"Program Files"\Anaconda3\Library\bin\pyrcc5     images\Resource_ha.qrc -o scripts\Resource_ha_rc.py

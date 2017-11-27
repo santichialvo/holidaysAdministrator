@@ -16,7 +16,7 @@ create table Feriados (
 create table Periodo (
 	ID		serial		not null,
 	Anio		int		not null,
-	Active		bool		not null,
+	Activo		bool		not null,
 	constraint uk_anioPeriodo unique (Anio),
 	constraint pk_periodo primary key (ID)
 	);
@@ -43,7 +43,6 @@ create table Usuario (
 	Nombre		varchar(30)	not null,
 	Apellido	varchar(30)	not null,
 	Email		varchar(50)	not null,
-	Dias		float		not null,
 	constraint pk_usuario primary key (ID),
 	constraint uk_usuario unique (Login,Password)
 	);
@@ -87,25 +86,26 @@ create table Solicitud (
 insert into Periodo values(default,2018,true);
 --insert into Periodo values(default,2019,false);
 --insert into Periodo values(default,2020,false);
-insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotmail.com',20); --1
-insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com',20); --2
-insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com',20); --3
-insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com',20); --4 
-insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com',20); --5
-insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com',20); --6
-insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com',20); --7
-insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com',20); --8
-insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com',20); --9
-insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com',20); --10
-insert into DiasPeriodo(default,1,1,20);
-insert into DiasPeriodo(default,2,1,20);
-insert into DiasPeriodo(default,3,1,20);
-insert into DiasPeriodo(default,4,1,20);
-insert into DiasPeriodo(default,6,1,20);
-insert into DiasPeriodo(default,7,1,20);
-insert into DiasPeriodo(default,8,1,20);
-insert into DiasPeriodo(default,9,1,20);
-insert into DiasPeriodo(default,10,1,20);
+insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotmail.com'); --1
+insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --2
+insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --3
+insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com'); --4 
+insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com'); --5
+insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com'); --6
+insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com'); --7
+insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com'); --8
+insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com'); --9
+insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com'); --10
+insert into DiasPeriodo values(default,1,1,20);
+insert into DiasPeriodo values(default,2,1,20);
+insert into DiasPeriodo values(default,3,1,20);
+insert into DiasPeriodo values(default,4,1,20);
+insert into DiasPeriodo values(default,5,1,20);
+insert into DiasPeriodo values(default,6,1,20);
+insert into DiasPeriodo values(default,7,1,20);
+insert into DiasPeriodo values(default,8,1,20);
+insert into DiasPeriodo values(default,9,1,20);
+insert into DiasPeriodo values(default,10,1,20);
 
 insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
 insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);

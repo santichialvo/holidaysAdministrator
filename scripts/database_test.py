@@ -118,6 +118,14 @@ def getAnioPeriod(conn,ID):
     cur.close()
     return rows[0][0]
 
+def getAllPeriods(conn):
+    cur = conn.cursor()
+    command = """SELECT ID from Periodo"""
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
 def getIDPeriodByYear(conn,Year):
     cur = conn.cursor()
     command = """SELECT ID from Periodo where Anio=%s"""%(Year)
@@ -349,6 +357,7 @@ def deletePeriodByYear(conn,year):
     Commands.append("""DELETE from Feriados where ID_Periodo=%s"""%ID)
     Commands.append("""DELETE from Notificaciones where ID_Periodo=%s"""%ID)
     Commands.append("""DELETE from Solicitud where ID_Periodo=%s"""%ID)
+    Commands.append("""DELETE from DiasPeriodo where ID_Periodo=%s"""%ID)
     Commands.append("""DELETE from Periodo where ID=%s"""%ID)
     for iComm in Commands:
         try:
@@ -362,6 +371,66 @@ def deletePeriodByYear(conn,year):
     return rows
 
 def addDaysOnPeriod(conn,ID_Usuario,ID_Periodo):
+    cur = conn.cursor()
+    command = """INSERT into DiasPeriodo values(default,%s,%s,default)"""%(ID_Usuario,ID_Periodo)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
+def deleteEmployee(conn,ID):
+    cur = conn.cursor()
+    Commands = []
+    Commands.append("""DELETE from Notificaciones where ID_Usuario=%s"""%ID)
+    Commands.append("""DELETE from Solicitud where ID_Usuario_S=%s"""%ID)
+    Commands.append("""DELETE from DiasPeriodo where ID_Usuario=%s"""%ID)
+    Commands.append("""DELETE from Rol where ID_Usuario=%s"""%ID)
+    Commands.append("""DELETE from Usuario where ID=%s"""%ID)
+    for iComm in Commands:
+        try:
+            cur.execute(iComm)
+            rows = cur.rowcount
+        except psycopg2.Error as e:
+            conn.rollback()
+            return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return rows
+
+def addEmployee(conn,nombre,apellido,usuario,password,email):
+    cur = conn.cursor()
+    command = """INSERT into Usuario values(default,'%s','%s','%s','%s','%s')"""%(usuario,password,nombre,apellido,email)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
+def createRol(conn,ID,rol):
+    cur = conn.cursor()
+    cur = conn.cursor()
+    Commands = []
+    Commands.append("""INSERT into Rol values(default,%s,0)"""%(ID))
+    if (rol=='Administrador'):
+        Commands.append("""INSERT into Rol values(default,%s,1)"""%(ID))
+    for iComm in Commands:
+        try:
+            cur.execute(iComm)
+        except psycopg2.Error as e:
+            conn.rollback()
+            return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
+def setDaysForNewUser(conn,ID_Usuario,ID_Periodo):
     cur = conn.cursor()
     command = """INSERT into DiasPeriodo values(default,%s,%s,default)"""%(ID_Usuario,ID_Periodo)
     try:

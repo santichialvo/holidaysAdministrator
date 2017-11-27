@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 from employeeWidget_ui import Ui_EmployeeWidget
 from admDaysDialog_ui import Ui_AdmDaysDialog
+from addRemoveEmployeeDialog import addRemoveEmployeeDialog
 from feriadosDialog import feriadosDialog
 from restriccionesDialog import restriccionesDialog
 from newPeriodDialog import newPeriodDialog
@@ -269,4 +270,9 @@ class employeeWidget(QtWidgets.QWidget):
     def newPeriod(self):
         np = newPeriodDialog(self.connection,self.currentUserID,self)
         np.exec_()
+        return
+    
+    def adminEmployee(self):
+        are = addRemoveEmployeeDialog(self.connection,self.currentUserID,self)
+        are.exec_()
         return

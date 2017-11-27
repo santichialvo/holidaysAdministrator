@@ -38,11 +38,12 @@ class employeeWindow(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(1054,450)
-        import platform
-        SO = platform.system()
-        
-        if SO!='Linux':
+        self.setFixedSize(1150,515)
+#        import platform
+#        SO = platform.system()
+        localTest = True
+
+        if not localTest:
             IP=findIPfromMAC('94-de-80-78-61-68')
             print(IP)
             if (IP.find('192.168')==-1):
@@ -50,14 +51,14 @@ class employeeWindow(QtWidgets.QMainWindow):
                 sys.exit(1)
 
         try:
-            if SO=='Linux':
-                self.connection = psycopg2.connect("dbname='HolidaysAdministrator' user='postgres' host='localhost' password=''")
+            if localTest:
+                self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='localhost' password='comando09'")
             else:
                 self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='%s' password='comando09' port='5432'"%IP)
         except psycopg2.OperationalError as e:
-            QtWidgets.QMessageBox.critical(self,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()            
+            QtWidgets.QMessageBox.critical(self,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()
             sys.exit(1)
-        
+
         self.currentUserID = 1
         return
     
