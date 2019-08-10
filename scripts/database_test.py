@@ -392,6 +392,7 @@ def deleteEmployee(conn,ID):
     Commands.append("""DELETE from Solicitud where ID_Usuario_S=%s"""%ID)
     Commands.append("""DELETE from DiasPeriodo where ID_Usuario=%s"""%ID)
     Commands.append("""DELETE from Rol where ID_Usuario=%s"""%ID)
+    Commands.append("""DELETE from RestriccionesUsuarios where %s = ANY (Usuarios)"""%(ID))
     Commands.append("""DELETE from Usuario where ID=%s"""%ID)
     for iComm in Commands:
         try:
