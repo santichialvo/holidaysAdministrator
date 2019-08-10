@@ -35,19 +35,23 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
     
+if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
+if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+    
 class employeeWindow(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(1150,515)
-#        import platform
-#        SO = platform.system()
+#        self.setFixedSize(1150,515)
         localTest = True
 
         if not localTest:
-            IP=findIPfromMAC('94-de-80-78-61-68')
-            print(IP)
+            IP=findIPfromMAC('00-1e-67-05-b5-49')
+#            print(IP)
             if (IP.find('192.168')==-1):
                 QtWidgets.QMessageBox.critical(self,'Error','Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida').exec_()
                 sys.exit(1)
@@ -119,7 +123,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         
     def showRequests(self):
         IDCurrentPeriod=getIDCurrentPeriod(self.connection)
-        Requests = searchRequestsByUserID(self.currentUserID,IDCurrentPeriod,self.connection)
+        Requests = searchRequestsByUserID(self.currentUserID,IDCurrentPeriod,self.connection,False)
         self.ui.table_solicitudes.clearContents()
         self.ui.table_solicitudes.setRowCount(0)
         for irequest in Requests:

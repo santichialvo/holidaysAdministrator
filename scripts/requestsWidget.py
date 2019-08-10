@@ -153,7 +153,7 @@ class requestsWidget(QtWidgets.QWidget):
                     names = names[:-2] if names != '' else names
                     names = names + ' - '
                 names = names[:-3] if names != '' else names
-                Rta = QtWidgets.QMessageBox.question(self,'Cuidado','Está por aprobar una solicitud que viola una restricción: %s ¿Desea continuar?'%(names),QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+                Rta = QtWidgets.QMessageBox.information(self,'Cuidado','Está por aprobar una solicitud que viola una restricción: %s ¿Desea continuar?'%(names),QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
                 if Rta==QtWidgets.QMessageBox.No:
                     QtWidgets.QMessageBox.critical(self,'Cancelar','Aprobación cancelada')
                     return

@@ -77,7 +77,7 @@ create table Solicitud (
 	Tipo		int		not null check (Tipo in (0,1)),		--0 Licencia, 1 Ausencia
 	ID_Periodo	int		not null,				
 	constraint pk_solicitud primary key (ID),
-	constraint uk_solicitud unique (ID_Usuario_S,Fecha_desde),
+	--constraint uk_solicitud unique (ID_Usuario_S,Fecha_desde),
 	constraint fk_solicitud1 foreign key (ID_Usuario_S) references Usuario(ID),
 	constraint fk_solicitud2 foreign key (ID_Usuario_A) references Usuario(ID),
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)

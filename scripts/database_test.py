@@ -45,9 +45,12 @@ def doRequestByID(ID_Usuario,conn,FechaD,Tipo,ID_Periodo,FechaH=None,Razon=None,
     cur.close()
     return 0
 
-def searchRequestsByUserID(ID_Usuario,ID_Periodo,conn):
+def searchRequestsByUserID(ID_Usuario,ID_Periodo,conn,cancel):
     cur = conn.cursor()
-    command = """SELECT ID,Fecha_Desde,Fecha_Hasta,MedioDia,Tipo,Estado from Solicitud where ID_Usuario_S=%s and ID_Periodo=%s order by ID"""%(ID_Usuario,ID_Periodo)
+    if not cancel:
+        command = """SELECT ID,Fecha_Desde,Fecha_Hasta,MedioDia,Tipo,Estado from Solicitud where ID_Usuario_S=%s and ID_Periodo=%s order by ID"""%(ID_Usuario,ID_Periodo)
+    else:
+        command = """SELECT ID,Fecha_Desde,Fecha_Hasta,MedioDia,Tipo,Estado from Solicitud where ID_Usuario_S=%s and ID_Periodo=%s and (Estado='A' or Estado='P') order by ID"""%(ID_Usuario,ID_Periodo)
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()

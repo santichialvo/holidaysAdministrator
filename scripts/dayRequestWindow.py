@@ -51,7 +51,7 @@ class dayRequestWindow(QtWidgets.QDialog):
         MedioDia = self.ui.diaUnicoComboBox.currentIndex() if self.ui.diaUnico.isChecked() else None
         Tipo = self.ui.tipo.currentIndex()
                                          
-        Requests=searchRequestsByUserID(userID,IDCurrentPeriod,conn)
+        Requests=searchRequestsByUserID(userID,IDCurrentPeriod,conn,True)
         for irequest in Requests:
             ReqFechaDesde = datetime.date(irequest[1].year,irequest[1].month,irequest[1].day)
             ReqFechaHasta = datetime.date(irequest[2].year,irequest[2].month,irequest[2].day) if irequest[2] is not None else None
@@ -74,9 +74,9 @@ class dayRequestWindow(QtWidgets.QDialog):
         if Rta==QtWidgets.QMessageBox.Yes:
             Return = doRequestByID(userID,conn,self.ui.fechaDesde.date(),Tipo,IDCurrentPeriod,fechaHasta,Razon,MedioDia)
             if Return==23505:   #unique violation
-                QtWidgets.QMessageBox.critical(self,'Error','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
+                QtWidgets.QMessageBox.critical(self,'Error 23505','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
             elif Return==23514: #check violation
-                QtWidgets.QMessageBox.critical(self,'Error','La fecha hasta debe ser mayor a la fecha desde')
+                QtWidgets.QMessageBox.critical(self,'Error 23514','La fecha hasta debe ser mayor a la fecha desde')
             elif Return==0:     #exito
                 QtWidgets.QMessageBox.information(self,'Exito','Solicitud enviada correctamente')
             return Return
