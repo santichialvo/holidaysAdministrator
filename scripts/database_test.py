@@ -13,6 +13,14 @@ def searchForUsers(user,password,conn):
     cur.close()
     return rows
 
+def searchUserByLogin(login, conn):
+    cur = conn.cursor()
+    command = """SELECT ID_Usuario from Rol r inner join Usuario u on u.ID = r.ID_Usuario where u.Login like '%s'"""%(login)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows
+
 def searchUserByID(ID,conn):
     cur = conn.cursor()
     command = """SELECT * from Usuario where ID=%s"""%(ID)
@@ -154,6 +162,18 @@ def updateRequestStatus(ID_Req,Cancel,ID_Admin,conn):
     cur = conn.cursor()
     Cancel_S = 'R' if Cancel else 'A'
     command = """UPDATE Solicitud set Estado='%s',ID_Usuario_A=%s where ID=%s"""%(Cancel_S,ID_Admin,ID_Req)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
+def changePassword(login, password, conn):
+    cur = conn.cursor()
+    command = """UPDATE Usuario set Password='%s' where Login like '%s'"""%(password, login)
     try:
         cur.execute(command)
     except psycopg2.Error as e:

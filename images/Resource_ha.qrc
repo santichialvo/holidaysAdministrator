@@ -172,5 +172,15 @@
     <file>fromHelyx/scalarbar/RGBRedToBlue16.png</file>
     <file>fromHelyx/scalarbar/RGBYellowToBlue16.png</file>
     <file>fromHelyx/scalarbar/whiteToBlack16.png</file>
+    <file>fromHelyx/key16.png</file>
+    <file>fromHelyx/accept16.png</file>
+    <file>fromHelyx/cancel16.png</file>
+    <file>fromHelyx/mainicon.svg</file>
+    <file>fromHelyx/calendar_add.png</file>
+    <file>fromHelyx/calendar_cancel.png</file>
+    <file>fromHelyx/employee.png</file>
+    <file>fromHelyx/employees.png</file>
+    <file>fromHelyx/christmas_day.png</file>
+    <file>fromHelyx/padlock.png</file>
   </qresource>
 </RCC>

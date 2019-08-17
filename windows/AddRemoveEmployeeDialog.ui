@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../images/Resource_ha.qrc">
-    <normaloff>:/F1/fromHelyx/eye16.png</normaloff>:/F1/fromHelyx/eye16.png</iconset>
+    <normaloff>:/F1/fromHelyx/mainicon.svg</normaloff>:/F1/fromHelyx/mainicon.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -39,18 +39,18 @@
      <item>
       <widget class="QPushButton" name="add_pushButton">
        <property name="text">
-        <string>Contratar</string>
+        <string> Contratar</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/homeFolder16.png</normaloff>:/F1/fromHelyx/homeFolder16.png</iconset>
+         <normaloff>:/F1/fromHelyx/employee.png</normaloff>:/F1/fromHelyx/employee.png</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="remove_pushButton">
        <property name="text">
-        <string>Despedir</string>
+        <string> Despedir</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">

@@ -69,10 +69,10 @@ class employeeWindow(QtWidgets.QMainWindow):
         return
     
     def login(self):
-        lw = loginWindow()
+        lw = loginWindow(self.connection)
         result = lw.exec_()
         if result:
-            Matches = lw.checkUser(self.connection)
+            Matches = lw.checkUser()
             self.currentUserID = Matches[0][0] if len(Matches)>0 else -1
             if Matches and len(Matches)!=2:
                 self.ui.tab_admin.deleteLater()

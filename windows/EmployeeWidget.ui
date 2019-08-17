@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../images/Resource_ha.qrc">
+    <normaloff>:/F1/fromHelyx/mainicon.svg</normaloff>:/F1/fromHelyx/mainicon.svg</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
     <widget class="QTableWidget" name="employeeStatustableWidget">
@@ -98,11 +102,11 @@
      <item>
       <widget class="QPushButton" name="restricciones_pushButton">
        <property name="text">
-        <string>Restricciones</string>
+        <string> Restricciones</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/lockClose16.png</normaloff>:/F1/fromHelyx/lockClose16.png</iconset>
+         <normaloff>:/F1/fromHelyx/padlock.png</normaloff>:/F1/fromHelyx/padlock.png</iconset>
        </property>
       </widget>
      </item>
@@ -113,7 +117,7 @@
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/application_view_list16.png</normaloff>:/F1/fromHelyx/application_view_list16.png</iconset>
+         <normaloff>:/F1/fromHelyx/christmas_day.png</normaloff>:/F1/fromHelyx/christmas_day.png</iconset>
        </property>
       </widget>
      </item>
@@ -131,11 +135,11 @@
      <item>
       <widget class="QPushButton" name="employee_pushButton">
        <property name="text">
-        <string>Empleados</string>
+        <string> Empleados</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/share16.png</normaloff>:/F1/fromHelyx/share16.png</iconset>
+         <normaloff>:/F1/fromHelyx/employees.png</normaloff>:/F1/fromHelyx/employees.png</iconset>
        </property>
       </widget>
      </item>

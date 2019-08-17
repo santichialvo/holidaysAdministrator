@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../images/Resource_ha.qrc">
-    <normaloff>:/F1/fromHelyx/eye16.png</normaloff>:/F1/fromHelyx/eye16.png</iconset>
+    <normaloff>:/F1/fromHelyx/mainicon.svg</normaloff>:/F1/fromHelyx/mainicon.svg</iconset>
   </property>
   <widget class="QWidget" name="MainWindowWidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -123,22 +123,22 @@
           <item row="2" column="0">
            <widget class="QPushButton" name="button_cancelRequest">
             <property name="text">
-             <string>Cancelar Solicitud</string>
+             <string> Cancelar Solicitud</string>
             </property>
             <property name="icon">
              <iconset resource="../images/Resource_ha.qrc">
-              <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
+              <normaloff>:/F1/fromHelyx/calendar_cancel.png</normaloff>:/F1/fromHelyx/calendar_cancel.png</iconset>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="button_dayRequest">
             <property name="text">
-             <string>Solicitar Día(s)</string>
+             <string> Solicitar Día(s)</string>
             </property>
             <property name="icon">
              <iconset resource="../images/Resource_ha.qrc">
-              <normaloff>:/F1/fromHelyx/calculator16.png</normaloff>:/F1/fromHelyx/calculator16.png</iconset>
+              <normaloff>:/F1/fromHelyx/calendar_add.png</normaloff>:/F1/fromHelyx/calendar_add.png</iconset>
             </property>
            </widget>
           </item>
@@ -466,7 +466,7 @@
      <x>0</x>
      <y>0</y>
      <width>1150</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

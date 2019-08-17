@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../images/Resource_ha.qrc">
+    <normaloff>:/F1/fromHelyx/mainicon.svg</normaloff>:/F1/fromHelyx/mainicon.svg</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="4">
     <widget class="QTableWidget" name="tableAdmSolicitudes">
@@ -102,11 +106,11 @@
    <item row="1" column="2">
     <widget class="QPushButton" name="cancelarSolicitud">
      <property name="text">
-      <string>Cancelar Solicitud</string>
+      <string> Cancelar Solicitud</string>
      </property>
      <property name="icon">
       <iconset resource="../images/Resource_ha.qrc">
-       <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
+       <normaloff>:/F1/fromHelyx/cancel16.png</normaloff>:/F1/fromHelyx/cancel16.png</iconset>
      </property>
     </widget>
    </item>
@@ -126,11 +130,11 @@
    <item row="1" column="1">
     <widget class="QPushButton" name="aceptarSolicitud">
      <property name="text">
-      <string>Aprobar Solicitud</string>
+      <string> Aprobar Solicitud</string>
      </property>
      <property name="icon">
       <iconset resource="../images/Resource_ha.qrc">
-       <normaloff>:/F1/fromHelyx/tick16.png</normaloff>:/F1/fromHelyx/tick16.png</iconset>
+       <normaloff>:/F1/fromHelyx/accept16.png</normaloff>:/F1/fromHelyx/accept16.png</iconset>
      </property>
     </widget>
    </item>

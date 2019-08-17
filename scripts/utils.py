@@ -5,8 +5,8 @@ Created on Thu Nov 23 15:34:36 2017
 @author: Santiago
 """
 import subprocess
-import sys
-from PyQt5 import QtWidgets
+import sys, os
+from PyQt5 import QtWidgets, QtGui
 import datetime
 
 def my_assert(obj,cond,errorMsj):
@@ -60,3 +60,20 @@ def calculateDays(TupleDays,Feriados):
                 else:
                     Cantidad+=0.5
     return Cantidad
+
+def getMessagesFont():
+    font = QtGui.QFont()
+    font.setFamily("Ubuntu")
+    font.setPointSize(8)
+    return font
+
+def showMessage(content, message_type = 3, buttons = QtWidgets.QMessageBox.Ok):
+    # 1 Information, 2 Warning, 3 Critical, 4 Question
+    font = getMessagesFont()
+    mtitle = 'Information' if message_type==1 else 'Warning' if message_type==2 else 'Error' if message_type==3 else 'Question'
+    w = QtWidgets.QMessageBox(message_type,mtitle,content,buttons)
+    w.setFont(font)
+    w.setWindowIcon(QtGui.QIcon(os.path.join(os.environ["HM_INST_DIR"],'images','fromHelyx','mainicon.png')))
+    QtWidgets.QApplication.processEvents()
+    reply = w.exec_()
+    return reply
