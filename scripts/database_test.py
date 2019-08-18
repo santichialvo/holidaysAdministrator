@@ -171,6 +171,18 @@ def updateRequestStatus(ID_Req,Cancel,ID_Admin,conn):
     cur.close()
     return 0
 
+def changePasswordbyID(ID, password, conn):
+    cur = conn.cursor()
+    command = """UPDATE Usuario set Password='%s' where ID=%s"""%(password, ID)
+    try:
+        cur.execute(command)
+    except psycopg2.Error as e:
+        conn.rollback()
+        return int(e.pgcode)
+    conn.commit()
+    cur.close()
+    return 0
+
 def changePassword(login, password, conn):
     cur = conn.cursor()
     command = """UPDATE Usuario set Password='%s' where Login like '%s'"""%(password, login)

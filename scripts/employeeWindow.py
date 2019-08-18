@@ -45,12 +45,12 @@ class employeeWindow(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
-        self.setBaseSize(1150,515)
+        self.setBaseSize(1150, 515)
         localTest = True
 
         if not localTest:
-            IP=findIPfromMAC('00-1e-67-05-b5-49')
-#            print(IP)
+            IP = findIPfromMAC('00-1e-67-05-b5-49')
+            # print(IP)
             if (IP.find('192.168')==-1):
                 showMessage('Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida')
                 sys.exit(1)
@@ -209,21 +209,21 @@ class employeeWindow(QtWidgets.QMainWindow):
             ev.ignore()
         return
     
-    def updateCaseSetup(self,QListWidgetItem):
+    def updateCaseSetup(self, QListWidgetItem):
         if not QListWidgetItem:
             return
         
         menu=str(QListWidgetItem.text())
-        if menu=='Solicitudes':
-            widget=requestsWidget(self.connection,self.currentUserID)
-        elif menu=='Empleados':
-            widget=employeeWidget(self.connection,self.currentUserID)
-        elif menu=='Histórico':
-            widget=None
-        elif menu=='Notificaciones':
-            widget=notificationsWidget(self.connection,self.currentUserID)
+        if menu == 'Solicitudes':
+            widget = requestsWidget(self.connection,self.currentUserID)
+        elif menu == 'Empleados':
+            widget = employeeWidget(self.connection,self.currentUserID)
+        elif menu == 'Notificaciones':
+            widget = notificationsWidget(self.connection,self.currentUserID)
+        else:
+            widget = requestsWidget(self.connection, self.currentUserID)
         
-        if self.ui.widgetsLayout.count()==1:
+        if self.ui.widgetsLayout.count() == 1:
             self.ui.widgetsLayout.itemAt(0).widget().deleteLater()
-        self.ui.widgetsLayout.insertWidget(0,widget)
+        self.ui.widgetsLayout.insertWidget(0, widget)
         return

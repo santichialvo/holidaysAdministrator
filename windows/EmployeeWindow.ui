@@ -439,18 +439,6 @@
              <normaloff>:/F1/fromHelyx/file16.png</normaloff>:/F1/fromHelyx/file16.png</iconset>
            </property>
           </item>
-          <item>
-           <property name="text">
-            <string>Histórico</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../images/Resource_ha.qrc">
-             <normaloff>:/F1/fromHelyx/monitoringFunction16.png</normaloff>:/F1/fromHelyx/monitoringFunction16.png</iconset>
-           </property>
-           <property name="flags">
-            <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>82</height>
+    <width>395</width>
+    <height>105</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,9 @@
     <normaloff>:/F1/fromHelyx/mainicon.svg</normaloff>:/F1/fromHelyx/mainicon.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QComboBox" name="employee_comboBox"/>
+   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
@@ -30,35 +33,6 @@
       <string>Empleados:</string>
      </property>
     </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="employee_comboBox"/>
-   </item>
-   <item row="4" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="add_pushButton">
-       <property name="text">
-        <string> Contratar</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/employee.png</normaloff>:/F1/fromHelyx/employee.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="remove_pushButton">
-       <property name="text">
-        <string> Despedir</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/exit16.png</normaloff>:/F1/fromHelyx/exit16.png</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item row="1" column="1">
     <spacer name="verticalSpacer">
@@ -73,6 +47,43 @@
      </property>
     </spacer>
    </item>
+   <item row="2" column="1">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="add_pushButton">
+       <property name="text">
+        <string> Contratar</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/employee.png</normaloff>:/F1/fromHelyx/employee.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="remove_pushButton">
+       <property name="text">
+        <string> Despedir</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/exit16.png</normaloff>:/F1/fromHelyx/exit16.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="resetPasswordPushButton">
+       <property name="text">
+        <string> Reset Contraseña</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/Resource_ha.qrc">
+         <normaloff>:/F1/fromHelyx/key16.png</normaloff>:/F1/fromHelyx/key16.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <resources>
@@ -81,13 +92,13 @@
  <connections>
   <connection>
    <sender>remove_pushButton</sender>
-   <signal>pressed()</signal>
+   <signal>released()</signal>
    <receiver>AddRemoveEmployeeDialog</receiver>
    <slot>removeEmployee()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>253</x>
-     <y>55</y>
+     <x>384</x>
+     <y>94</y>
     </hint>
     <hint type="destinationlabel">
      <x>159</x>
@@ -97,13 +108,13 @@
   </connection>
   <connection>
    <sender>add_pushButton</sender>
-   <signal>pressed()</signal>
+   <signal>released()</signal>
    <receiver>AddRemoveEmployeeDialog</receiver>
    <slot>addEmployee()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>55</y>
+     <x>286</x>
+     <y>94</y>
     </hint>
     <hint type="destinationlabel">
      <x>159</x>
@@ -111,9 +122,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>resetPasswordPushButton</sender>
+   <signal>released()</signal>
+   <receiver>AddRemoveEmployeeDialog</receiver>
+   <slot>resetEmployeePassword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>52</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addEmployee()</slot>
   <slot>removeEmployee()</slot>
+  <slot>resetEmployeePassword()</slot>
  </slots>
 </ui>

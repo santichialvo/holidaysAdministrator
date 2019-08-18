@@ -9,7 +9,7 @@ from PyQt5 import QtWidgets
 from addRemoveEmployeeDialog_ui import Ui_AddRemoveEmployeeDialog
 from addEmployeeDialog_ui import Ui_AddEmployeeDialog
 from database_test import searchAllUsersID,searchNameForUserByID,deleteEmployee, \
-                          getUserID,createRol,addEmployee,getAllPeriods,setDaysForNewUser
+                          getUserID,createRol,addEmployee,getAllPeriods,setDaysForNewUser, changePasswordbyID
 from utils import showMessage
     
 class addRemoveEmployeeDialog(QtWidgets.QDialog):
@@ -20,7 +20,7 @@ class addRemoveEmployeeDialog(QtWidgets.QDialog):
         self.connection = conn
         self.currentUserID = userID
         self.parent = parent
-        self.setFixedSize(320,82)
+        self.setBaseSize(395, 105)
         self.fillComboBox()
         return
     
@@ -55,7 +55,7 @@ class addRemoveEmployeeDialog(QtWidgets.QDialog):
                     if (Res!=0):
                         showMessage('Error creando los roles para el nuevo usuario. Contacte al administrador inmediatamente.')
                         return
-                    Periods=getAllPeriods(self.connection)
+                    Periods = getAllPeriods(self.connection)
                     for iPeriod in Periods:
                         # se crean tablas para todos los periodos existentes. Habría que cambiar esto
                         Res = setDaysForNewUser(self.connection,UserID,iPeriod[0])
@@ -67,11 +67,11 @@ class addRemoveEmployeeDialog(QtWidgets.QDialog):
                     self.parent.colourRequestedDays()
                     self.parent.colourFeriados()
                     self.fillComboBox()
-                    QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
+                    showMessage('Operación realizada', 1)
                 else:
                     showMessage('No se pudo realizar la operación solicitada')
             else:
-                QtWidgets.QMessageBox.information(self,'Cancelada','Operación cancelada')
+                showMessage('Operación cancelada', 1)
         return
     
     def removeEmployee(self):
@@ -80,18 +80,34 @@ class addRemoveEmployeeDialog(QtWidgets.QDialog):
         UserID = getUserID(self.connection,employee[0],employee[1])
         msg = '¿Desea eliminar al usuario '+employeeStr+' del sistema?'
         Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
-        if (Rta==QtWidgets.QMessageBox.Yes):
+        if Rta==QtWidgets.QMessageBox.Yes:
             # reseteo antes de eliminarlo
             self.parent.resetCalendar()
             Ret = deleteEmployee(self.connection,UserID)
-            if (Ret==1):
+            if Ret == 1:
                 self.parent.showEmployeeStatus()
                 self.parent.colourRequestedDays()
                 self.parent.colourFeriados()
                 self.fillComboBox()
-                QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
+                showMessage('Operación realizada', 1)
             else:
                 showMessage('No se pudo realizar la operación solicitada')
         else:
-            QtWidgets.QMessageBox.information(self,'Cancelada','Operación cancelada')
+            showMessage('Operación cancelada', 1)
+        return
+
+    def resetEmployeePassword(self):
+        employee_name = str(self.ui.employee_comboBox.currentText())
+        employee = employee_name.split(' ')
+        user_id = getUserID(self.connection, employee[0], employee[1])
+        msg = '¿Desea resetear la contraseña del usuario ' + employee_name + '?'
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if Rta == QtWidgets.QMessageBox.Yes:
+            ret = changePasswordbyID(user_id, "", self.connection)
+            if not ret:
+                showMessage('Operación realizada', 1)
+            else:
+                showMessage('No se pudo realizar la operación solicitada')
+        else:
+            showMessage('Operación cancelada', 1)
         return

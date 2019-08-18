@@ -30,8 +30,8 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     # setup stylesheet
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-    
-    os.environ["HM_INST_DIR"] = "C:\\Users\\Santiago\\Desktop\\holidaysAdministrator"
+
+    # os.environ["HM_INST_DIR"] = "C:\\Users\\Santiago\\Desktop\\holidaysAdministrator"
     
     ew = employeeWindow()
     result = ew.login()
