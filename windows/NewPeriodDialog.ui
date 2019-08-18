@@ -23,22 +23,22 @@
      <item>
       <widget class="QPushButton" name="new_pushButton">
        <property name="text">
-        <string>Nuevo</string>
+        <string> Nuevo</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/tick16.png</normaloff>:/F1/fromHelyx/tick16.png</iconset>
+         <normaloff>:/F1/fromHelyx/accept16.png</normaloff>:/F1/fromHelyx/accept16.png</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="delete_pushButton">
        <property name="text">
-        <string>Eliminar</string>
+        <string> Eliminar</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/win_close16.png</normaloff>:/F1/fromHelyx/win_close16.png</iconset>
+         <normaloff>:/F1/fromHelyx/cancel16.png</normaloff>:/F1/fromHelyx/cancel16.png</iconset>
        </property>
       </widget>
      </item>

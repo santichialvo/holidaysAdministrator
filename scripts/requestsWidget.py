@@ -7,6 +7,7 @@ Created on Thu Mar  9 18:02:54 2017
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from requestsWidget_ui import Ui_RequestsWidget
+from utils import showMessage, GREEN, YELLOW, RED
 from database_test import searchNameByRequest,searchAllRequests,updateRequestStatus, \
                           getRestriccionesFromUser,getRequestByIDs,searchforAbsenceOrLicenseByUserID, \
                           getIDCurrentPeriod,searchNameForUserByID
@@ -69,7 +70,7 @@ class requestsWidget(QtWidgets.QWidget):
             self.ui.tableAdmSolicitudes.setItem(currentRow,6,it6)
             it7=QtWidgets.QTableWidgetItem(str('Pendiente') if irequest[6]=='P' else str('Aprobada') if irequest[6]=='A' else str('Rechazada'))
             it7.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
-            color = QtCore.Qt.red if irequest[6]=='R' else QtCore.Qt.yellow if irequest[6]=='P' else QtCore.Qt.green
+            color = RED if irequest[6]=='R' else YELLOW if irequest[6]=='P' else GREEN
             it7.setBackground(color)
             self.ui.tableAdmSolicitudes.setItem(currentRow,7,it7)
             Tuple=searchNameByRequest(irequest[0],True,self.connection)
@@ -153,11 +154,13 @@ class requestsWidget(QtWidgets.QWidget):
                     names = names[:-2] if names != '' else names
                     names = names + ' - '
                 names = names[:-3] if names != '' else names
-                Rta = QtWidgets.QMessageBox.information(self,'Cuidado','Está por aprobar una solicitud que viola una restricción: %s ¿Desea continuar?'%(names),QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+                msg = 'Está por aprobar una solicitud que viola una restricción: %s ¿Desea continuar?'%(names)
+                Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
                 if Rta==QtWidgets.QMessageBox.No:
                     QtWidgets.QMessageBox.critical(self,'Cancelar','Aprobación cancelada')
                     return
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea aprobar la solicitud %s?'%RequestNumber,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea aprobar la solicitud %s?'%RequestNumber
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Return=updateRequestStatus(RequestNumber,False,self.currentUserID,self.connection)
                 if Return==0:
@@ -166,13 +169,14 @@ class requestsWidget(QtWidgets.QWidget):
             else:
                 QtWidgets.QMessageBox.critical(self,'Cancelar','Aprobación cancelada')
         else:
-            QtWidgets.QMessageBox.critical(self,'Error','Debe seleccionar una solicitud')
+            showMessage('Debe seleccionar una solicitud')
         return
     
     def cancelRequest(self):
         if self.ui.tableAdmSolicitudes.currentRow()>=0:
             RequestNumber=str(self.ui.tableAdmSolicitudes.item(self.ui.tableAdmSolicitudes.currentRow(),0).text())
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea cancelar la solicitud %s?'%RequestNumber,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea cancelar la solicitud %s?'%RequestNumber
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Return=updateRequestStatus(RequestNumber,True,self.currentUserID,self.connection)
                 if Return==0:
@@ -181,5 +185,5 @@ class requestsWidget(QtWidgets.QWidget):
             else:
                 QtWidgets.QMessageBox.critical(self,'Cancelar','Cancelación rechazada')
         else:
-            QtWidgets.QMessageBox.critical(self,'Error','Debe seleccionar una solicitud')
+            showMessage('Debe seleccionar una solicitud')
         return

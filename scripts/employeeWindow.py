@@ -5,10 +5,8 @@ Created on Thu Feb 23 23:39:12 2017
 @author: Santiago
 """
 
+import psycopg2, datetime, sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-import psycopg2
-import datetime
-import sys
 from utils import findIPfromMAC,calculateDays
 from employeeWindow_ui import Ui_EmployeeWindow
 from loginWindow import loginWindow
@@ -17,6 +15,7 @@ from cancelRequestWindow import cancelRequestWindow
 from requestsWidget import requestsWidget
 from employeeWidget import employeeWidget
 from notificationsWidget import notificationsWidget
+from utils import showMessage, GREEN, YELLOW
 from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID, \
                           getIDCurrentPeriod,searchNotificationsByID,getFeriados,searchDaysForUserByID, \
                           searchforAbsenceOrLicenseByUserID,getAnioPeriod
@@ -46,14 +45,14 @@ class employeeWindow(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
-#        self.setFixedSize(1150,515)
+        self.setBaseSize(1150,515)
         localTest = True
 
         if not localTest:
             IP=findIPfromMAC('00-1e-67-05-b5-49')
 #            print(IP)
             if (IP.find('192.168')==-1):
-                QtWidgets.QMessageBox.critical(self,'Error','Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida').exec_()
+                showMessage('Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida')
                 sys.exit(1)
 
         try:
@@ -62,7 +61,7 @@ class employeeWindow(QtWidgets.QMainWindow):
             else:
                 self.connection = psycopg2.connect("dbname='holidaysAdministrator' user='postgres' host='%s' password='comando09' port='5432'"%IP)
         except psycopg2.OperationalError as e:
-            QtWidgets.QMessageBox.critical(self,'Error','Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida').exec_()
+            showMessage('Fallo en la conexión con la base de datos. Compruebe que la máquina servidor este encendida')
             sys.exit(1)
 
         self.currentUserID = 1
@@ -82,12 +81,12 @@ class employeeWindow(QtWidgets.QMainWindow):
     
     def loadData(self):
         if (self.currentUserID<0):
-            QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Ha ocurrido un error. Por favor comuníquese con el administrador').exec_()
+            showMessage('Ha ocurrido un error. Por favor comuníquese con el administrador')
             sys.exit(1)
         
         UserTuple = searchUserByID(self.currentUserID,self.connection)
         if (len(UserTuple)>1):
-            QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,'Error','Ha ocurrido un error. Por favor comuníquese con el administrador').exec_()
+            showMessage('Ha ocurrido un error. Por favor comuníquese con el administrador')
             sys.exit(1)
             
         self.currentUserName = UserTuple[0][1]
@@ -169,9 +168,9 @@ class employeeWindow(QtWidgets.QMainWindow):
         
     def colourRequestedDays(self):
         format_reqday_complete = QtGui.QTextCharFormat()
-        format_reqday_complete.setBackground(QtCore.Qt.yellow)
+        format_reqday_complete.setBackground(YELLOW)
         format_reqday_half = QtGui.QTextCharFormat()
-        format_reqday_half.setBackground(QtCore.Qt.green)
+        format_reqday_half.setBackground(GREEN)
         IDCurrentPeriod=getIDCurrentPeriod(self.connection)
         Days = searchDaysAcceptedByID(self.currentUserID,self.connection,IDCurrentPeriod)
         for iday in Days:
@@ -201,6 +200,13 @@ class employeeWindow(QtWidgets.QMainWindow):
             Return=crw.searchAndDeleteRequest(self.currentUserID,self.connection)
             if Return==0:
                 self.showRequests()
+        return
+    
+    def closeEvent(self, ev):
+        msg = '¿Está seguro de que desea salir del Administrador de Licencias?'
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
+        if Rta == QtWidgets.QMessageBox.No:
+            ev.ignore()
         return
     
     def updateCaseSetup(self,QListWidgetItem):

@@ -82,20 +82,18 @@ create table Solicitud (
 	constraint fk_solicitud2 foreign key (ID_Usuario_A) references Usuario(ID),
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)
 	);
-	
-insert into Periodo values(default,2018,true);
---insert into Periodo values(default,2019,false);
+
+insert into Periodo values(default,2019,true);
 --insert into Periodo values(default,2020,false);
-insert into Usuario values(default,'Luciana','','Luciana','Montersino','lm@hotmail.com'); --1
-insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --2
-insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --3
-insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com'); --4 
-insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com'); --5
-insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com'); --6
-insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com'); --7
-insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com'); --8
-insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com'); --9
-insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com'); --10
+insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --1
+insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --2
+insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com'); --3 
+insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com'); --4
+insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com'); --5
+insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com'); --6
+insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com'); --7
+insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com'); --8
+insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com'); --9
 insert into DiasPeriodo values(default,1,1,20);
 insert into DiasPeriodo values(default,2,1,20);
 insert into DiasPeriodo values(default,3,1,20);
@@ -107,10 +105,10 @@ insert into DiasPeriodo values(default,8,1,20);
 insert into DiasPeriodo values(default,9,1,20);
 insert into DiasPeriodo values(default,10,1,20);
 
-insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
-insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);
-insert into Solicitud values(default,2,8,'21/03/2017',null,'Varias 3','A',1,0,1);
-insert into Solicitud values(default,1,9,'22/03/2017',null,null,'A',2,0,1);
+--insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
+--insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);
+--insert into Solicitud values(default,2,8,'21/03/2017',null,'Varias 3','A',1,0,1);
+--insert into Solicitud values(default,1,9,'22/03/2017',null,null,'A',2,0,1);
 insert into Rol values(default,1,0);
 insert into Rol values(default,2,0);
 insert into Rol values(default,3,0);
@@ -118,19 +116,15 @@ insert into Rol values(default,4,0);
 insert into Rol values(default,5,0);
 insert into Rol values(default,6,0);
 insert into Rol values(default,7,0);
+insert into Rol values(default,7,1);
 insert into Rol values(default,8,0);
 insert into Rol values(default,8,1);
 insert into Rol values(default,9,0);
 insert into Rol values(default,9,1);
-insert into Rol values(default,10,0);
-insert into Rol values(default,10,1);
-insert into Feriados values(default,'19/11/2017','Dia de la Soberanía Nacional',1);
+insert into Feriados values(default,'20/08/2019','Feriado Puente',1);
 
 insert into RestriccionesUsuarios values(default,'{3,4}');
 insert into RestriccionesUsuarios values(default,'{4,5}');
 insert into RestriccionesUsuarios values(default,'{5,7}');
-insert into RestriccionesUsuarios values(default,'{5,1}');
-insert into RestriccionesUsuarios values(default,'{7,1}');
-insert into RestriccionesUsuarios values(default,'{1,6}');
 
-select Usuarios from RestriccionesUsuarios
+select Nombre from Usuario

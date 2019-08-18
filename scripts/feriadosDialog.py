@@ -6,11 +6,12 @@ Created on Wed Oct 25 16:15:18 2017
 @author: etekken
 """
 
+import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from feriadosDialog_ui import Ui_FeriadosDialog
 from modificarFeriadosDialog_ui import Ui_ModificarFeriadosDialog
 from database_test import getIDCurrentPeriod,getFeriados,addFeriados,deleteFeriados
-import datetime
+from utils import showMessage
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -64,7 +65,8 @@ class feriadosDialog(QtWidgets.QDialog):
         if Result:
             Fecha = mfDialog.fecha_feriado.date()
             Razon = mfDialog.razon_feriado.toPlainText()
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea agregar el día '+str(Fecha.toString('dd/MM/yyyy'))+' como feriado ?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea agregar el día '+str(Fecha.toString('dd/MM/yyyy'))+' como feriado ?'
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 IDCurrentPeriod = getIDCurrentPeriod(self.connection)
                 Result = addFeriados(self.connection,IDCurrentPeriod,Fecha,Razon)
@@ -73,9 +75,9 @@ class feriadosDialog(QtWidgets.QDialog):
                     self.showFeriados()
                     self.parent.colourFeriados()
                 elif Result==23505:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'Usted ya seleccionó este día como feriado')
+                    showMessage('Usted ya seleccionó este día como feriado')
                 else:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
+                    showMessage('No se pudo realizar la operación solicitada')
             else:
                 QtWidgets.QMessageBox.information(self,'Cancelada','Solicitud cancelada')
         
@@ -93,16 +95,17 @@ class feriadosDialog(QtWidgets.QDialog):
         
         if Result:
             Fecha = mfDialog.fecha_feriado.date()
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea eliminar el día '+str(Fecha.toString('dd/MM/yyyy'))+' como feriado ?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea eliminar el día '+str(Fecha.toString('dd/MM/yyyy'))+' como feriado?'
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 IDCurrentPeriod = getIDCurrentPeriod(self.connection)
                 Result = deleteFeriados(self.connection,IDCurrentPeriod,Fecha)
                 if Result==1:
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                 elif Result==0:
-                    QtWidgets.QMessageBox.critical(self,'Error','No existe ningún feriado en esa fecha')
+                    showMessage('No existe ningún feriado en esa fecha')
                 else:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
+                    showMessage('No se pudo realizar la operación solicitada')
                 self.showFeriados()
                 self.parent.colourFeriados()
             else:

@@ -9,6 +9,7 @@ Created on Thu Oct 26 13:05:53 2017
 from PyQt5 import QtCore, QtGui, QtWidgets
 from restriccionesDialog_ui import Ui_RestriccionesDialog
 from addRestrictionDialog import addRestrictionDialog
+from utils import showMessage
 from database_test import getRestricciones,searchNameForUserByID,searchAllUsersID, \
                             getUserID,addRestriccionesUsuarios,deleteRestriccionesUsuarios
 
@@ -67,13 +68,14 @@ class restriccionesDialog(QtWidgets.QDialog):
         if Return:
             cantEmpleados = addrDialog.ui.employee_listWidget.count()
             if cantEmpleados==0:
-                QtWidgets.QMessageBox.critical(self,'Error','No ha seleccionado ningún empleado')
+                showMessage('No ha seleccionado ningún empleado')
                 return
             text = ''
             for iItem in xrange(cantEmpleados):
                 item=addrDialog.ui.employee_listWidget.item(iItem)
                 text = text + item.text() + ', '
-            Ret=QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea agregar una restricción con '+str(text)+' a la lista?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea agregar una restricción con '+str(text)+' a la lista?'
+            Ret = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Ret==QtWidgets.QMessageBox.Yes:
                 employeeList = '{'
                 for iItem in xrange(cantEmpleados):
@@ -88,13 +90,14 @@ class restriccionesDialog(QtWidgets.QDialog):
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                     self.showRestricciones()
                 else:
-                    QtWidgets.QMessageBox.critical(self,'Error','No se ha podido efectuar la operación')
+                    showMessage('No se ha podido efectuar la operación')
         else:
             QtWidgets.QMessageBox.information(self,'Cancelada','Restricción cancelada')
             
     def deleteRestriction(self):
         employeeNames = self.ui.restricciones_tableWidget.currentItem().text()
-        Ret=QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea eliminar la restricción de '+str(employeeNames)+' de la lista?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+        msg = '¿Desea eliminar la restricción de '+str(employeeNames)+' de la lista?'
+        Ret = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
         if (Ret==QtWidgets.QMessageBox.Yes):
             Names = employeeNames.split(' - ')
             employeeList = '{'
@@ -109,7 +112,7 @@ class restriccionesDialog(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                 self.showRestricciones()
             else:
-                QtWidgets.QMessageBox.critical(self,'Error','No se ha podido efectuar la operación')
+                showMessage('No se ha podido efectuar la operación')
                 
         return
                 

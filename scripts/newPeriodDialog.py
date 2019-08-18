@@ -11,7 +11,7 @@ from newPeriodDialog_ui import Ui_NewPeriodDialog
 from database_test import getPeriodos,deletePeriodByYear,getIDCurrentPeriod, \
                           getAnioPeriod,activate_deactivatePeriod,addPeriod, \
                           searchAllUsersID,addDaysOnPeriod,getIDPeriodByYear
-from utils import my_assert
+from utils import my_assert, showMessage
 import os
 
 try:
@@ -37,12 +37,12 @@ class DateDialog(QtWidgets.QDialog):
         # comboBox with years
         QtWidgets.QDialog.setWindowTitle(self,'Nuevo período')
         icon = QtGui.QIcon()
-        filename = os.path.join(os.path.dirname(__file__)+"/../images/fromHelyx/eye16.png")
+        filename = os.path.join( os.path.join(os.environ["HM_INST_DIR"],'images','fromHelyx','mainicon.png') )
         icon.addPixmap(QtGui.QPixmap(filename),QtGui.QIcon.Normal,QtGui.QIcon.Off)
         QtWidgets.QDialog.setWindowIcon(self,icon)
 
         self.yearsComboBox = QtWidgets.QComboBox(self)
-        self.yearsComboBox.addItems(['2018','2019','2020','2021','2022'])
+        self.yearsComboBox.addItems(['2020','2021','2022','2023','2024','2025'])
         layout.addWidget(self.yearsComboBox)
 
         # OK and Cancel buttons
@@ -100,27 +100,28 @@ class newPeriodDialog(QtWidgets.QDialog):
     def deletePeriod(self):
         Item = self.ui.period_listWidget.currentItem()
         if not Item:
-            QtWidgets.QMessageBox.critical(self,'Error','Debe seleccionar un periodo')
+            showMessage('Debe seleccionar un periodo')
             return
         ItemText = Item.text()
         currentPeriod = getIDCurrentPeriod(self.connection)
         Anio = getAnioPeriod(self.connection,currentPeriod)
         if (ItemText==str(Anio)):
-            QtWidgets.QMessageBox.critical(self,'Error','El periodo a eliminar no puede ser el actual')
+            showMessage('El periodo a eliminar no puede ser el actual')
             return
-        Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea eliminar el periodo '+str(ItemText)+'? Considere que todas las solicitudes y notificaciones serán también eliminadas',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+        msg = '¿Desea eliminar el periodo '+str(ItemText)+'? Considere que todas las solicitudes y notificaciones serán también eliminadas'
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
         if Rta==QtWidgets.QMessageBox.Yes:
             currentPeriod = getIDCurrentPeriod(self.connection)
             Anio=getAnioPeriod(self.connection,currentPeriod)
             if (Anio==ItemText):
-                QtWidgets.QMessageBox.critical(self,'Error','No puede eliminar el periodo actual')
+                showMessage('No puede eliminar el periodo actual')
                 return
             rows=deletePeriodByYear(self.connection,ItemText)
             if (rows==1):
                 QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                 self.showPeriods()
             else:
-                QtWidgets.QMessageBox.critical(self,'Error '+str(rows),'El periodo no pudo ser eliminado')
+                showMessage('El periodo no pudo ser eliminado')
         return
     
     
@@ -128,7 +129,8 @@ class newPeriodDialog(QtWidgets.QDialog):
     def addPeriod(self):
         year, ok = DateDialog.getDateTime()
         if ok:
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea crear el periodo '+str(year)+'?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea crear el periodo '+str(year)+'?'
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 Res = addPeriod(self.connection,year)
                 if (Res==0):
@@ -138,19 +140,20 @@ class newPeriodDialog(QtWidgets.QDialog):
                     for ID in IDs:
                         Res = addDaysOnPeriod(self.connection,ID[0],IDPeriod)
                         if (Res!=0):
-                            QtWidgets.QMessageBox.critical(self,'Error '+str(Res),'Error insertando los días del periódo. Contacte con el administrador inmediatamente.')
+                            showMessage('Error insertando los días del periódo. Contacte con el administrador inmediatamente.')
                             return
                     QtWidgets.QMessageBox.information(self,'Exito','Operación realizada')
                     self.showPeriods()
                 elif Res==23505:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Res),'El periodo ya existe')
+                    showMessage('El periodo ya existe')
                 else:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Res),'El periodo no pudo ser creado')
+                    showMessage('El periodo no pudo ser creado')
         return
     
     def selectPeriod(self,item):
         newAnio=str(item.text())
-        Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea utilizar el periodo '+newAnio+' como activo?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+        msg = '¿Desea utilizar el periodo '+newAnio+' como activo?'
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
         if Rta==QtWidgets.QMessageBox.Yes:
             currentPeriod = getIDCurrentPeriod(self.connection)
             # reseteo calendario antes de que se cambie el periodo activo
@@ -158,11 +161,11 @@ class newPeriodDialog(QtWidgets.QDialog):
             Anio=getAnioPeriod(self.connection,currentPeriod)
             Ret=activate_deactivatePeriod(self.connection,Anio,False)
             if (Ret!=0):
-                QtWidgets.QMessageBox.critical(self,'Error '+Ret,'La operación no pudo realizarse')
+                showMessage('La operación no pudo realizarse')
                 return
             Ret=activate_deactivatePeriod(self.connection,newAnio,True)
             if (Ret!=0):
-                QtWidgets.QMessageBox.critical(self,'Error '+Ret,'La operación no pudo realizarse')
+                showMessage('La operación no pudo realizarse')
                 return
             # cambio de periodo activo (en la ventana)
             self.setActive(Anio)

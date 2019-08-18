@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from dayRequestWindow_ui import Ui_DayRequestWindow
 import datetime
 from database_test import doRequestByID,searchRequestsByUserID,getIDCurrentPeriod
+from utils import showMessage
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -59,24 +60,24 @@ class dayRequestWindow(QtWidgets.QDialog):
             currFechaHasta = datetime.date(fechaHasta.year(),fechaHasta.month(),fechaHasta.day()) if fechaHasta is not None else None
             if ReqFechaHasta:
                 if ReqFechaDesde <= currFechaDesde <= ReqFechaHasta:
-                    QtWidgets.QMessageBox.critical(self,'Error','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
+                    showMessage('Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
                     return -1
             if currFechaHasta:
                 if currFechaDesde <= ReqFechaDesde <= currFechaHasta:
-                    QtWidgets.QMessageBox.critical(self,'Error','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
+                    showMessage('Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
                     return -1
             if ReqFechaDesde==currFechaDesde:
-                    QtWidgets.QMessageBox.critical(self,'Error','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
+                    showMessage('Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
                     return -1
         
-        QuestionStr = '¿Está seguro que desea solicitar los días %s a %s?'%(str(fechaDesde.toString('dd/MM/yyyy')),str(fechaHasta.toString('dd/MM/yyyy'))) if fechaHasta is not None else '¿Está seguro que desea solicitar el día %s?'%str(fechaDesde.toString('dd/MM/yyyy'))
-        Rta = QtWidgets.QMessageBox.question(self,'Confirmación',QuestionStr,QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+        msg = '¿Está seguro que desea solicitar los días %s a %s?'%(str(fechaDesde.toString('dd/MM/yyyy')),str(fechaHasta.toString('dd/MM/yyyy'))) if fechaHasta is not None else '¿Está seguro que desea solicitar el día %s?'%str(fechaDesde.toString('dd/MM/yyyy'))
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
         if Rta==QtWidgets.QMessageBox.Yes:
             Return = doRequestByID(userID,conn,self.ui.fechaDesde.date(),Tipo,IDCurrentPeriod,fechaHasta,Razon,MedioDia)
             if Return==23505:   #unique violation
-                QtWidgets.QMessageBox.critical(self,'Error 23505','Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
+                showMessage('Usted ya ha pedido ese día o alguno de esos días anteriormente. Por favor cancele la solicitud para volver a efectuarla')
             elif Return==23514: #check violation
-                QtWidgets.QMessageBox.critical(self,'Error 23514','La fecha hasta debe ser mayor a la fecha desde')
+                showMessage('La fecha hasta debe ser mayor a la fecha desde')
             elif Return==0:     #exito
                 QtWidgets.QMessageBox.information(self,'Exito','Solicitud enviada correctamente')
             return Return

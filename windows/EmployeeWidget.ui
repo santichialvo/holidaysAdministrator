@@ -73,7 +73,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Dar Días</string>
+        <string> Dar Días</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
@@ -84,11 +84,11 @@
      <item>
       <widget class="QPushButton" name="descountDays_pushButton">
        <property name="text">
-        <string>Descontar Días</string>
+        <string> Descontar Días</string>
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/win_closeAll16.png</normaloff>:/F1/fromHelyx/win_closeAll16.png</iconset>
+         <normaloff>:/F1/fromHelyx/cancel16.png</normaloff>:/F1/fromHelyx/cancel16.png</iconset>
        </property>
       </widget>
      </item>

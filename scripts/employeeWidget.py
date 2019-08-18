@@ -13,7 +13,7 @@ from addRemoveEmployeeDialog import addRemoveEmployeeDialog
 from feriadosDialog import feriadosDialog
 from restriccionesDialog import restriccionesDialog
 from newPeriodDialog import newPeriodDialog
-from utils import calculateDays
+from utils import calculateDays, showMessage, GREEN, YELLOW, RED
 from database_test import getIDCurrentPeriod,searchAllUsersID,searchDaysForUserByID, \
                             searchNameForUserByID,searchforAbsenceOrLicenseByUserID, \
                             searchDaysAcceptedByID,searchDaysByUserID,AddDaysToUser, \
@@ -78,7 +78,7 @@ class employeeWidget(QtWidgets.QWidget):
             it4=QtWidgets.QTableWidgetItem(str(RestOfDays))
             it4.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
             self.ui.employeeStatustableWidget.setItem(currentRow,4,it4)
-            color = QtCore.Qt.green if RestOfDays==0 else QtCore.Qt.yellow if RestOfDays>0 else QtCore.Qt.red
+            color = GREEN if RestOfDays==0 else YELLOW if RestOfDays>0 else RED
             it0.setBackground(color)
         return
     
@@ -93,9 +93,9 @@ class employeeWidget(QtWidgets.QWidget):
     
     def colourRequestedDays(self):
         format_reqday_one = QtGui.QTextCharFormat()
-        format_reqday_one.setBackground(QtCore.Qt.yellow)
+        format_reqday_one.setBackground(YELLOW)
         format_reqday_two = QtGui.QTextCharFormat()
-        format_reqday_two.setBackground(QtCore.Qt.green)
+        format_reqday_two.setBackground(GREEN)
         AllUsersIDs=searchAllUsersID(self.connection)
         IDCurrentPeriod=getIDCurrentPeriod(self.connection)
         daysEmployeeDict = []               #Lista que me indica todos los dias que fueron pedidos
@@ -178,12 +178,13 @@ class employeeWidget(QtWidgets.QWidget):
         if result:
             dias = admDialog.days_doubleSpinBox.value()
             if (dias % .5!=0):
-                QtWidgets.QMessageBox.critical(self,'Error','El número ingresado no es válido')
+                showMessage('El número ingresado no es válido')
                 return
             
             empleado = admDialog.employee_comboBox.currentText()
             txt = 'agregar ' if senderButton=='giveDays_pushButton' else 'descontar '
-            Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea '+str(txt)+str(dias)+' días al empleado '+str(empleado)+'?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+            msg = '¿Desea '+str(txt)+str(dias)+' días al empleado '+str(empleado)+'?'
+            Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
             if Rta==QtWidgets.QMessageBox.Yes:
                 empleado = empleado.split(' ')
                 ID_Usuario = getUserID(self.connection,empleado[0],empleado[1])
@@ -201,7 +202,7 @@ class employeeWidget(QtWidgets.QWidget):
                     AddNotification(self.connection,Razon,str(dias),AltaBaja,IDUsuario,IDCurrentPeriod,self.currentUserID)
                     self.showEmployeeStatus()
                 else:
-                    QtWidgets.QMessageBox.critical(self,'Error '+str(Result),'No se pudo realizar la operación solicitada')
+                    showMessage('No se pudo realizar la operación solicitada')
         return
     
     def resetCalendar(self):

@@ -6,8 +6,13 @@ Created on Thu Nov 23 15:34:36 2017
 """
 import subprocess
 import sys, os
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 import datetime
+
+GREEN   = QtCore.Qt.GlobalColor(14)
+YELLOW  = QtCore.Qt.GlobalColor(18)
+RED     = QtCore.Qt.GlobalColor(13)
+
 
 def my_assert(obj,cond,errorMsj):
     if not cond:
@@ -70,7 +75,7 @@ def getMessagesFont():
 def showMessage(content, message_type = 3, buttons = QtWidgets.QMessageBox.Ok):
     # 1 Information, 2 Warning, 3 Critical, 4 Question
     font = getMessagesFont()
-    mtitle = 'Information' if message_type==1 else 'Warning' if message_type==2 else 'Error' if message_type==3 else 'Question'
+    mtitle = 'Información' if message_type==1 else 'Cuidado' if message_type==2 else 'Error' if message_type==3 else 'Pregunta'
     w = QtWidgets.QMessageBox(message_type,mtitle,content,buttons)
     w.setFont(font)
     w.setWindowIcon(QtGui.QIcon(os.path.join(os.environ["HM_INST_DIR"],'images','fromHelyx','mainicon.png')))

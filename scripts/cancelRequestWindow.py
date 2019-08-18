@@ -8,6 +8,7 @@ Created on Mon Feb 27 08:20:19 2017
 from PyQt5 import QtCore, QtGui, QtWidgets
 from cancelRequestWindow_ui import Ui_CancelRequestWindow
 from database_test import searchRequestByIDs,deleteRequestByID
+from utils import showMessage
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -40,9 +41,9 @@ class cancelRequestWindow(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.information(self,'Exito','Solicitud cancelada')
                 return 0
             else:
-                QtWidgets.QMessageBox.critical(self,'Error','La solicitud ingresada ya fue aprobada o cancelada. Por favor contacte con el administrador')
+                showMessage('La solicitud ingresada ya fue aprobada o cancelada. Por favor contacte con el administrador')
                 return -1    
         else:
-            QtWidgets.QMessageBox.critical(self,'Error','La solicitud ingresada no existe')
+            showMessage('La solicitud ingresada no existe')
             return -1
             

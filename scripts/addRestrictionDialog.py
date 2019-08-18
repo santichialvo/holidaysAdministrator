@@ -6,9 +6,10 @@ Created on Fri Nov  3 02:50:54 2017
 @author: etekken
 """
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from addRestrictionDialog_ui import Ui_addRestrictionDialog
 from database_test import searchAllUsersID,searchNameForUserByID
+from utils import showMessage
     
 class addRestrictionDialog(QtWidgets.QDialog):
     def __init__(self,conn,userID):
@@ -32,7 +33,8 @@ class addRestrictionDialog(QtWidgets.QDialog):
         
     def addEmployeeToList(self):
         empleado = self.ui.employee_comboBox.currentText()
-        Rta = QtWidgets.QMessageBox.question(self,'Confirmación','¿Desea agregar a ' + str(empleado) + ' a la lista?',QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
+        msg = '¿Desea agregar a ' + str(empleado) + ' a la lista?'
+        Rta = showMessage(msg, 4, QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
         if Rta==QtWidgets.QMessageBox.Yes:
             if empleado in self.currentEmployeesOnList:
                 QtWidgets.QMessageBox.critical(self,'Error','El empleado ya se encuentra en la lista')

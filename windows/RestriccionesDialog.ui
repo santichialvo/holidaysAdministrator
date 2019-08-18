@@ -48,7 +48,7 @@
        </property>
        <property name="icon">
         <iconset resource="../images/Resource_ha.qrc">
-         <normaloff>:/F1/fromHelyx/prev_grey16.png</normaloff>:/F1/fromHelyx/prev_grey16.png</iconset>
+         <normaloff>:/F1/fromHelyx/reconstruct16.png</normaloff>:/F1/fromHelyx/reconstruct16.png</iconset>
        </property>
       </widget>
      </item>
