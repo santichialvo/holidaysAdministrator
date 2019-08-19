@@ -103,7 +103,7 @@ insert into DiasPeriodo values(default,6,1,20);
 insert into DiasPeriodo values(default,7,1,20);
 insert into DiasPeriodo values(default,8,1,20);
 insert into DiasPeriodo values(default,9,1,20);
-insert into DiasPeriodo values(default,10,1,20);
+--insert into DiasPeriodo values(default,10,1,20);
 
 --insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);
 --insert into Solicitud values(default,1,10,'20/03/2017',null,'Varias 2','P',0,1,1);
