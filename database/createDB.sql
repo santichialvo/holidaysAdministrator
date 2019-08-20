@@ -16,6 +16,7 @@ create table Feriados (
 create table Periodo (
 	ID		serial		not null,
 	Anio		int		not null,
+	Fecha_fin	date		not null,
 	Activo		bool		not null,
 	constraint uk_anioPeriodo unique (Anio),
 	constraint pk_periodo primary key (ID)
@@ -83,7 +84,7 @@ create table Solicitud (
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)
 	);
 
-insert into Periodo values(default,2019,true);
+insert into Periodo values(default,2019,'15/12/2019',true);
 --insert into Periodo values(default,2020,false);
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --1
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --2

@@ -101,9 +101,10 @@ def searchNameByRequest(ID_Req,Admin,conn):
     cur.close()
     return rows
 
-def addPeriod(conn,Anio):
+def addPeriod(conn, Anio, end_date):
     cur = conn.cursor()
-    command = """INSERT into Periodo values(default,%s,false);"""%(Anio)
+    end_date = "'%s/%s/%s'" % (end_date.day(), end_date.month(), end_date.year())
+    command = """INSERT into Periodo values(default,%s,%s,false);"""%(Anio, end_date)
     try:
         cur.execute(command)
     except psycopg2.Error as e:
@@ -371,7 +372,7 @@ def deleteRestriccionesUsuarios(conn,ResList):
 
 def getPeriodos(conn):
     cur = conn.cursor()
-    command = """SELECT Anio FROM Periodo order by ID"""
+    command = """SELECT Anio,Fecha_fin FROM Periodo order by ID"""
     cur.execute(command)
     rows = cur.fetchall()
     cur.close()
