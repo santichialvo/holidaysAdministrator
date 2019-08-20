@@ -130,6 +130,14 @@ def getAnioPeriod(conn,ID):
     cur.close()
     return rows[0][0]
 
+def getEndDatePeriod(conn, ID):
+    cur = conn.cursor()
+    command = """SELECT Fecha_fin from Periodo where ID=%s"""%(ID)
+    cur.execute(command)
+    rows = cur.fetchall()
+    cur.close()
+    return rows[0][0]
+
 def getAllPeriods(conn):
     cur = conn.cursor()
     command = """SELECT ID from Periodo"""

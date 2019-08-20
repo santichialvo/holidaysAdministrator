@@ -18,7 +18,7 @@ from notificationsWidget import notificationsWidget
 from utils import showMessage, GREEN, YELLOW
 from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID, \
                           getIDCurrentPeriod,searchNotificationsByID,getFeriados,searchDaysForUserByID, \
-                          searchforAbsenceOrLicenseByUserID,getAnioPeriod
+                          searchforAbsenceOrLicenseByUserID,getAnioPeriod, getEndDatePeriod
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -93,20 +93,32 @@ class employeeWindow(QtWidgets.QMainWindow):
         self.currentUserMail = UserTuple[0][5]
         
         self.changeView()
+
+        IDCurrentPeriod = getIDCurrentPeriod(self.connection)
+        RestOfDays = self.calculateRemainingDays(IDCurrentPeriod)
+        end_date = getEndDatePeriod(self.connection, IDCurrentPeriod)
+        current_date = datetime.date.today()
+        remaining_days = abs((current_date - end_date).days)
+        if RestOfDays > 0 and remaining_days < 20:
+            showMessage("Quedan %s días para que finalize el período. Por favor, solicite sus días antes de que éstos expiren"%remaining_days, 1)
         return
+
+    def calculateRemainingDays(self, IDCurrentPeriod):
+        # todo esto para calcular los días restantes.. -_-
+        Feriados = getFeriados(self.connection, IDCurrentPeriod)
+        Dias = searchDaysForUserByID(self.connection, self.currentUserID, IDCurrentPeriod)
+        DaysTotal = Dias[0][0]
+        Absences = searchforAbsenceOrLicenseByUserID(self.connection, self.currentUserID, IDCurrentPeriod, True)
+        DaysAbsences = calculateDays(Absences, Feriados)
+        Licenses = searchforAbsenceOrLicenseByUserID(self.connection, self.currentUserID, IDCurrentPeriod, False)
+        DaysLicenses = calculateDays(Licenses, Feriados)
+        RestOfDays = DaysTotal - DaysAbsences - DaysLicenses
+        return RestOfDays
     
     def setLabels(self):
         self.ui.label_presentacion.setText('Hola, %s'%self.currentUserName)
-        # todo esto para calcular los días restantes.. -_-
-        IDCurrentPeriod=getIDCurrentPeriod(self.connection)
-        Feriados=getFeriados(self.connection,IDCurrentPeriod)
-        Dias=searchDaysForUserByID(self.connection,self.currentUserID,IDCurrentPeriod)
-        DaysTotal=Dias[0][0]
-        Absences=searchforAbsenceOrLicenseByUserID(self.connection,self.currentUserID,IDCurrentPeriod,True)
-        DaysAbsences=calculateDays(Absences,Feriados)
-        Licenses=searchforAbsenceOrLicenseByUserID(self.connection,self.currentUserID,IDCurrentPeriod,False)
-        DaysLicenses=calculateDays(Licenses,Feriados)
-        RestOfDays=DaysTotal-DaysAbsences-DaysLicenses
+        IDCurrentPeriod = getIDCurrentPeriod(self.connection)
+        RestOfDays = self.calculateRemainingDays(IDCurrentPeriod)
         self.ui.label_dias.setText('Días restantes: %s'%RestOfDays)
         Anio=getAnioPeriod(self.connection,IDCurrentPeriod)
         self.ui.label_periodo.setText('Período: %s'%Anio)
