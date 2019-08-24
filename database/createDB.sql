@@ -84,7 +84,7 @@ create table Solicitud (
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)
 	);
 
-insert into Periodo values(default,2019,'01/09/2019',true);
+insert into Periodo values(default,2019,'15/12/2019',true);
 --insert into Periodo values(default,2020,false);
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --1
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --2
