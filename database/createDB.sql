@@ -1,4 +1,4 @@
-﻿create table RestriccionesUsuarios (
+create table RestriccionesUsuarios (
 	ID		serial		not null,
 	Usuarios	integer[]	not null,
 	constraint pk_restriccionesUsuario primary key (ID)
@@ -84,26 +84,26 @@ create table Solicitud (
 	constraint fk_solicitud3 foreign key (ID_Periodo) references Periodo(ID)
 	);
 
-insert into Periodo values(default,2019,'15/12/2019',true);
+insert into Periodo values(default,2019,'15/01/2019',true);
 --insert into Periodo values(default,2020,false);
 insert into Usuario values(default,'Fernando','','Fernando','Rodriguez','fr@hotmail.com'); --1
 insert into Usuario values(default,'Javier','','Javier','Rosso','jr@hotmail.com'); --2
 insert into Usuario values(default,'Mauricio','','Mauricio','Fito','mf@hotmail.com'); --3 
 insert into Usuario values(default,'Angelica','','Angelica','Grazzolo','ag@hotmail.com'); --4
 insert into Usuario values(default,'Horacio','','Horacio','Poliotto','hp@hotmail.com'); --5
-insert into Usuario values(default,'Carolina','','Carolina','Orlanda','co@hotmail.com'); --6
+insert into Usuario values(default,'Camila','','Camila','Grazzolo','cg@hotmail.com'); --6
 insert into Usuario values(default,'Marcelo','','Marcelo','Chialvo','mc@hotmail.com'); --7
 insert into Usuario values(default,'Gerardo','','Gerardo','Chialvo','gc@hotmail.com'); --8
 insert into Usuario values(default,'Lydia','','Lydia','Salzmann','ls@hotmail.com'); --9
-insert into DiasPeriodo values(default,1,1,20);
-insert into DiasPeriodo values(default,2,1,20);
-insert into DiasPeriodo values(default,3,1,20);
-insert into DiasPeriodo values(default,4,1,20);
-insert into DiasPeriodo values(default,5,1,20);
-insert into DiasPeriodo values(default,6,1,20);
-insert into DiasPeriodo values(default,7,1,20);
-insert into DiasPeriodo values(default,8,1,20);
-insert into DiasPeriodo values(default,9,1,20);
+insert into DiasPeriodo values(default,1,1,28);
+insert into DiasPeriodo values(default,2,1,21);
+insert into DiasPeriodo values(default,3,1,28);
+insert into DiasPeriodo values(default,4,1,21);
+insert into DiasPeriodo values(default,5,1,21);
+insert into DiasPeriodo values(default,6,1,5);
+insert into DiasPeriodo values(default,7,1,21);
+insert into DiasPeriodo values(default,8,1,21);
+insert into DiasPeriodo values(default,9,1,21);
 --insert into DiasPeriodo values(default,10,1,20);
 
 --insert into Solicitud values(default,1,10,'09/03/2017','19/03/2017','Varias','A',null,1,1);

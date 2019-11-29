@@ -53,17 +53,17 @@ def calculateDays(TupleDays,Feriados):
                 if checkFeriado(currDay,Feriados):
                     currDay += datetime.timedelta(1)
                     continue
-                if currDay.weekday() not in (5,6):
-                    Cantidad+= 1
+#                if currDay.weekday() not in (5,6):
+                Cantidad+= 1
                 currDay += datetime.timedelta(1)
         else:
-            if iTuple[0].weekday() not in (5,6):
-                if checkFeriado(iTuple[0],Feriados):
-                    continue
-                if iTuple[2]==0:
-                    Cantidad+=1
-                else:
-                    Cantidad+=0.5
+#            if iTuple[0].weekday() not in (5,6):
+            if checkFeriado(iTuple[0],Feriados):
+                continue
+            if iTuple[2]==0:
+                Cantidad+=1
+            else:
+                Cantidad+=0.5
     return Cantidad
 
 def getMessagesFont():
