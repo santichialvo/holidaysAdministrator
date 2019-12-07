@@ -90,7 +90,7 @@
       </sizepolicy>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::ClickFocus</enum>
+      <enum>Qt::TabFocus</enum>
      </property>
      <property name="inputMethodHints">
       <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
@@ -112,7 +112,7 @@
       </sizepolicy>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::ClickFocus</enum>
+      <enum>Qt::TabFocus</enum>
      </property>
     </widget>
    </item>
@@ -121,7 +121,7 @@
      <item>
       <widget class="QPushButton" name="acceptPushButton">
        <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
+        <enum>Qt::TabFocus</enum>
        </property>
        <property name="text">
         <string> Aceptar</string>
@@ -150,6 +150,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>Usuario</tabstop>
+  <tabstop>Password</tabstop>
+  <tabstop>acceptPushButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../images/Resource_ha.qrc"/>
  </resources>
