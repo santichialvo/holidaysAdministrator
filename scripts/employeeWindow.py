@@ -51,7 +51,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         localTest = True
 
         if not localTest:
-            IP = findIPfromMAC('00-1e-67-05-b5-49')
+            IP = findIPfromMAC('00-1f-1f-12-a9-73')
             # print(IP)
             if (IP.find('192.168')==-1):
                 showMessage('Fallo en la detección de la IP. Compruebe que la máquina servidor este encendida')
