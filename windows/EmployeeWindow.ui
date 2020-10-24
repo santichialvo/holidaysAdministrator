@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Administrador de Licencias 1.0</string>
+   <string>Administrador de Licencias</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../images/Resource_ha.qrc">
@@ -221,11 +221,11 @@
               <bold>false</bold>
              </font>
             </property>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>85</number>
-            </attribute>
             <attribute name="horizontalHeaderMinimumSectionSize">
              <number>40</number>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>85</number>
             </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>

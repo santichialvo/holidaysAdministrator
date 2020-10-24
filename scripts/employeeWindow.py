@@ -15,6 +15,7 @@ from cancelRequestWindow import cancelRequestWindow
 from requestsWidget import requestsWidget
 from employeeWidget import employeeWidget
 from notificationsWidget import notificationsWidget
+from version import __version__
 from utils import showMessage, GREEN, YELLOW
 from database_test import searchUserByID,searchDaysAcceptedByID,searchRequestsByUserID, \
                           getIDCurrentPeriod,searchNotificationsByID,getFeriados,searchDaysForUserByID, \
@@ -46,6 +47,7 @@ class employeeWindow(QtWidgets.QMainWindow):
         self.ui = Ui_EmployeeWindow()
         self.ui.setupUi(self)
         self.setBaseSize(1150, 515)
+        self.setWindowTitle(f'Administrador de Licencias - Version {__version__}')
         localTest = True
 
         if not localTest:

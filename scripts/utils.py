@@ -12,7 +12,7 @@ import datetime
 GREEN   = QtCore.Qt.GlobalColor(14)
 YELLOW  = QtCore.Qt.GlobalColor(18)
 RED     = QtCore.Qt.GlobalColor(13)
-
+INSTALLATION_FOLDER = os.environ['HM_INST_DIR']
 
 def my_assert(obj,cond,errorMsj):
     if not cond:
@@ -72,7 +72,7 @@ def getMessagesFont():
     font.setPointSize(8)
     return font
 
-def showMessage(content, message_type = 3, buttons = QtWidgets.QMessageBox.Ok):
+def showMessage(content, message_type = 3, buttons = QtWidgets.QMessageBox.Ok, _exec = True):
     # 1 Information, 2 Warning, 3 Critical, 4 Question
     font = getMessagesFont()
     mtitle = 'Información' if message_type==1 else 'Cuidado' if message_type==2 else 'Error' if message_type==3 else 'Pregunta'
@@ -80,5 +80,5 @@ def showMessage(content, message_type = 3, buttons = QtWidgets.QMessageBox.Ok):
     w.setFont(font)
     w.setWindowIcon(QtGui.QIcon(os.path.join(os.environ["HM_INST_DIR"],'images','fromHelyx','mainicon.png')))
     QtWidgets.QApplication.processEvents()
-    reply = w.exec_()
+    reply = w.exec_() if _exec else w.show()
     return reply
